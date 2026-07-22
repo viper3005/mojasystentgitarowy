@@ -208,7 +208,7 @@
             font-size: 0.85rem;
         }
 
-        /* Tab Box - z obsługą zawijania wierszy */
+        /* Tab Box - Naprawiona obsługa długich tabulatur */
         .tab-box {
             background-color: #14151F;
             border: 1px solid var(--border);
@@ -216,14 +216,15 @@
             padding: 12px;
             margin: 12px 0;
             text-align: left;
-            white-space: pre-wrap;
-            word-break: break-word;
-            overflow-wrap: break-word;
-            font-family: monospace;
-            font-size: 0.85rem;
-            color: #63B3ED;
-            max-height: 250px;
+            white-space: pre;
+            overflow-x: auto;
             overflow-y: auto;
+            max-height: 250px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            line-height: 1.2;
+            color: #63B3ED;
+            -webkit-overflow-scrolling: touch;
         }
 
         .exercise-image-preview {
@@ -389,6 +390,10 @@
             color: var(--text-main);
             font-size: 0.9rem;
             width: 100%;
+        }
+
+        textarea {
+            font-family: 'Courier New', Courier, monospace;
         }
 
         input:focus, textarea:focus, select:focus {
@@ -633,7 +638,7 @@
         {
             name: "Rutyna Podstawowa (Domyślna)",
             exercises: [
-                { name: "1. Rozgrzewka: Pajączek", time: 5, tab: "e|-------------------|\nB|-------------------|\nG|-------------------|\nD|-------------------|\nA|-------------------|\nE|--1-2-3-4--2-3-4-5-|", image: "" },
+                { name: "1. Rozgrzewka: Pajączek", time: 5, tab: "e|-----------------------------------| \nB|-----------------------------------| \nG|-----------------------------------| \nD|-----------------------------------| \nA|-----------------------------------| \nE|--1-2-3-4--2-3-4-5--3-4-5-6--4-5-6-7|", image: "" },
                 { name: "2. Skala Pentatoniczna A-moll", time: 10, tab: "e|--------------------5-8--|\nB|--------------5-8--------|\nG|--------5-7--------------|\nD|--5-7--------------------|\nA|-------------------------|\nE|-------------------------|", image: "" }
             ]
         },
