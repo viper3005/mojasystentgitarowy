@@ -816,6 +816,50 @@
             .time-left { font-size: 2.5rem; }
             .metronome-controls { flex-direction: column; align-items: stretch; }
             .bpm-input-group { justify-content: center; }
+
+            /* COMPACT TAB STAFF ON MOBILE PHONES */
+            .sheet-container {
+                padding: 8px 6px;
+            }
+
+            .staff-labels {
+                width: 22px;
+                padding-right: 3px;
+            }
+
+            .staff-string-label {
+                height: 18px;
+                font-size: 0.75rem;
+            }
+
+            .staff-finger-label-top, .staff-finger-label-bottom {
+                height: 18px;
+                font-size: 0.65rem;
+            }
+
+            .staff-step {
+                width: 24px;
+            }
+
+            .string-cell {
+                height: 18px;
+            }
+
+            .fret-badge {
+                font-size: 0.75rem;
+                padding: 0 2px;
+                min-width: 12px;
+            }
+
+            .finger-top-cell, .finger-bottom-cell {
+                height: 18px;
+            }
+
+            .finger-badge-top, .finger-badge-bottom {
+                width: 15px;
+                height: 15px;
+                font-size: 0.6rem;
+            }
         }
     </style>
 </head>
@@ -1010,8 +1054,14 @@
             </div>
 
             <div class="form-group">
-                <label>Tablature / Sheet music image (optional):</label>
-                <input type="file" id="input-image" accept="image/*">
+                <label style="font-weight: bold; color: var(--text-main);">🖼️ Tablature / Sheet music image (optional):</label>
+                <input type="file" id="input-image" accept="image/*" onchange="onImageFileSelected(this)">
+                
+                <div id="image-form-preview-container" style="display: none; margin-top: 8px; align-items: center; gap: 10px; background: #14151F; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border);">
+                    <img id="image-form-thumbnail" src="" alt="Thumbnail" style="max-height: 50px; max-width: 80px; object-fit: contain; border-radius: 4px; border: 1px solid var(--border);">
+                    <span style="font-size: 0.8rem; color: var(--text-muted); flex-grow: 1;">Załączony obrazek</span>
+                    <button type="button" class="secondary" onclick="removeExerciseImage()" style="color: #EF4444; padding: 4px 10px; font-size: 0.8rem; border-color: rgba(239, 68, 68, 0.4);">🗑️ Usuń zdjęcie</button>
+                </div>
             </div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                 <button id="btn-save-exercise" onclick="saveExercise()" style="flex-grow: 1;">Add Exercise</button>
@@ -2136,6 +2186,40 @@
         renderAll();
     }
 
+    // --- EXERCISE IMAGE ATTACHMENT & REMOVAL ---
+    let currentExerciseImage = "";
+
+    function onImageFileSelected(input) {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentExerciseImage = e.target.result;
+                updateImageFormPreview();
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function removeExerciseImage() {
+        currentExerciseImage = "";
+        const inputEl = document.getElementById('input-image');
+        if (inputEl) inputEl.value = "";
+        updateImageFormPreview();
+    }
+
+    function updateImageFormPreview() {
+        const container = document.getElementById('image-form-preview-container');
+        const thumb = document.getElementById('image-form-thumbnail');
+        if (container && thumb) {
+            if (currentExerciseImage && currentExerciseImage.trim() !== "") {
+                thumb.src = currentExerciseImage;
+                container.style.display = 'flex';
+            } else {
+                container.style.display = 'none';
+            }
+        }
+    }
+
     function editExercise(idx) {
         const ex = routines[activeRoutineIndex].exercises[idx];
         document.getElementById('edit-exercise-index').value = idx;
@@ -2144,6 +2228,9 @@
         document.getElementById('input-tab').value = ex.tab || '';
         document.getElementById('input-preferred-view').value = ex.preferredView || 'svg';
         document.getElementById('input-image').value = '';
+
+        currentExerciseImage = ex.image || '';
+        updateImageFormPreview();
 
         textToGrid(ex.tab || '');
         previewSvgInForm();
@@ -2165,6 +2252,9 @@
         document.getElementById('input-image').value = '';
         document.getElementById('form-svg-preview').style.display = 'none';
 
+        currentExerciseImage = '';
+        updateImageFormPreview();
+
         resetTabGrid(16);
 
         document.getElementById('form-title').innerText = "➕ Add New Exercise";
@@ -2178,7 +2268,6 @@
         const time = parseInt(document.getElementById('input-time').value);
         const tab = document.getElementById('input-tab').value;
         const preferredView = document.getElementById('input-preferred-view').value || 'svg';
-        const imageFile = document.getElementById('input-image').files[0];
         const editIndex = parseInt(document.getElementById('edit-exercise-index').value);
 
         if(!name) {
@@ -2189,35 +2278,13 @@
         const exercises = routines[activeRoutineIndex].exercises;
 
         if (editIndex > -1) {
-            let existingImage = exercises[editIndex].image || "";
-            if (imageFile) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    exercises[editIndex] = { name, time, tab, preferredView, image: e.target.result };
-                    saveData();
-                    cancelEdit();
-                };
-                reader.readAsDataURL(imageFile);
-            } else {
-                exercises[editIndex] = { name, time, tab, preferredView, image: existingImage };
-                saveData();
-                cancelEdit();
-            }
+            exercises[editIndex] = { name, time, tab, preferredView, image: currentExerciseImage };
         } else {
-            if (imageFile) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    exercises.push({ name, time, tab, preferredView, image: e.target.result });
-                    saveData();
-                    cancelEdit();
-                };
-                reader.readAsDataURL(imageFile);
-            } else {
-                exercises.push({ name, time, tab, preferredView, image: "" });
-                saveData();
-                cancelEdit();
-            }
+            exercises.push({ name, time, tab, preferredView, image: currentExerciseImage });
         }
+
+        saveData();
+        cancelEdit();
     }
 
     function deleteExercise(idx) {
