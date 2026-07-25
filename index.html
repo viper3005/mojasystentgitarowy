@@ -242,11 +242,15 @@
 
         .exercise-image-preview {
             margin: 15px auto;
+            width: 100%;
             max-width: 100%;
-            max-height: 250px;
+            max-height: 85vh;
             object-fit: contain;
             border-radius: 8px;
             border: 1px solid var(--border);
+            background-color: #FFFFFF;
+            padding: 4px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             display: none;
         }
 
@@ -817,48 +821,59 @@
             .metronome-controls { flex-direction: column; align-items: stretch; }
             .bpm-input-group { justify-content: center; }
 
-            /* COMPACT TAB STAFF ON MOBILE PHONES */
+            /* ULTRA COMPACT TAB STAFF ON MOBILE PHONES */
             .sheet-container {
-                padding: 8px 6px;
+                padding: 6px 4px;
+            }
+
+            .staff-system {
+                gap: 2px;
+                margin-bottom: 8px;
             }
 
             .staff-labels {
-                width: 22px;
-                padding-right: 3px;
+                width: 18px;
+                padding-right: 2px;
+                border-right-width: 1.5px;
             }
 
             .staff-string-label {
-                height: 18px;
-                font-size: 0.75rem;
+                height: 15px;
+                font-size: 0.68rem;
             }
 
             .staff-finger-label-top, .staff-finger-label-bottom {
-                height: 18px;
-                font-size: 0.65rem;
+                height: 15px;
+                font-size: 0.58rem;
+            }
+
+            .staff-steps-container {
+                gap: 2px 1px;
             }
 
             .staff-step {
-                width: 24px;
+                width: 18px;
             }
 
             .string-cell {
-                height: 18px;
+                height: 15px;
             }
 
             .fret-badge {
-                font-size: 0.75rem;
-                padding: 0 2px;
-                min-width: 12px;
+                font-size: 0.68rem;
+                padding: 0 1px;
+                min-width: 10px;
+                box-shadow: 0 0 0 1px #FFFFFF;
             }
 
             .finger-top-cell, .finger-bottom-cell {
-                height: 18px;
+                height: 15px;
             }
 
             .finger-badge-top, .finger-badge-bottom {
-                width: 15px;
-                height: 15px;
-                font-size: 0.6rem;
+                width: 13px;
+                height: 13px;
+                font-size: 0.55rem;
             }
         }
     </style>
@@ -1057,10 +1072,12 @@
                 <label style="font-weight: bold; color: var(--text-main);">🖼️ Tablature / Sheet music image (optional):</label>
                 <input type="file" id="input-image" accept="image/*" onchange="onImageFileSelected(this)">
                 
-                <div id="image-form-preview-container" style="display: none; margin-top: 8px; align-items: center; gap: 10px; background: #14151F; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--border);">
-                    <img id="image-form-thumbnail" src="" alt="Thumbnail" style="max-height: 50px; max-width: 80px; object-fit: contain; border-radius: 4px; border: 1px solid var(--border);">
-                    <span style="font-size: 0.8rem; color: var(--text-muted); flex-grow: 1;">Załączony obrazek</span>
-                    <button type="button" class="secondary" onclick="removeExerciseImage()" style="color: #EF4444; padding: 4px 10px; font-size: 0.8rem; border-color: rgba(239, 68, 68, 0.4);">🗑️ Usuń zdjęcie</button>
+                <div id="image-form-preview-container" style="display: none; margin-top: 10px; flex-direction: column; gap: 8px; background: #FFFFFF; padding: 10px; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <span style="font-size: 0.85rem; font-weight: bold; color: #000000;">🖼️ Podgląd Załączonego Pliku / Nuty:</span>
+                        <button type="button" class="secondary" onclick="removeExerciseImage()" style="color: #EF4444; padding: 4px 10px; font-size: 0.8rem; border-color: rgba(239, 68, 68, 0.4);">🗑️ Usuń zdjęcie</button>
+                    </div>
+                    <img id="image-form-thumbnail" src="" alt="Załączone nuty" style="max-height: 70vh; width: 100%; object-fit: contain; border-radius: 6px; background-color: #FFFFFF;">
                 </div>
             </div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
