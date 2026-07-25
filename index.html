@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mój Asystent Rutyny Gitarowej</title>
+    <title>My Guitar Routine Assistant</title>
     <style>
         :root {
             --bg-color: #12131C;
@@ -128,7 +128,7 @@
             text-shadow: 0 0 10px rgba(255, 123, 0, 0.2);
         }
 
-        /* METRONOM */
+        /* METRONOME */
         .metronome-box {
             background: #14151F;
             border: 1px solid var(--border);
@@ -208,7 +208,7 @@
             font-size: 0.85rem;
         }
 
-        /* Tab Box - Naprawiona obsługa długich tabulatur */
+        /* Tab Box */
         .tab-box {
             background-color: #14151F;
             border: 1px solid var(--border);
@@ -217,14 +217,27 @@
             margin: 12px 0;
             text-align: left;
             white-space: pre;
-            overflow-x: auto;
-            overflow-y: auto;
-            max-height: 250px;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: monospace;
             font-size: 0.85rem;
-            line-height: 1.2;
             color: #63B3ED;
-            -webkit-overflow-scrolling: touch;
+            max-height: 250px;
+            overflow: auto;
+        }
+
+        /* Container for generated SVG sheet */
+        .sheet-container {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .tab-svg-render {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         .exercise-image-preview {
@@ -393,7 +406,9 @@
         }
 
         textarea {
-            font-family: 'Courier New', Courier, monospace;
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
         }
 
         input:focus, textarea:focus, select:focus {
@@ -471,6 +486,163 @@
             flex-wrap: wrap;
         }
 
+        /* VISUAL TAB GRID BUILDER */
+        .tab-builder-container {
+            background-color: #14151F;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 6px;
+        }
+
+        .tab-mode-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .tab-mode-btn {
+            flex: 1;
+            padding: 8px 10px;
+            font-size: 0.85rem;
+            background-color: #1E202D;
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-mode-btn.active {
+            background-color: var(--accent);
+            color: #000;
+            font-weight: bold;
+            border-color: var(--accent);
+        }
+
+        .grid-controls-bar {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .grid-controls-bar button {
+            padding: 5px 10px;
+            font-size: 0.75rem;
+        }
+
+        .grid-controls-bar span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-right: 2px;
+        }
+
+        .tab-grid-wrapper {
+            overflow-x: auto;
+            width: 100%;
+            padding-bottom: 6px;
+            border-radius: 6px;
+        }
+
+        .tab-grid-table {
+            border-collapse: separate;
+            border-spacing: 3px;
+            width: max-content;
+        }
+
+        .tab-grid-table td, .tab-grid-table th {
+            padding: 0;
+            text-align: center;
+        }
+
+        .tab-grid-label {
+            font-weight: bold;
+            font-size: 0.8rem;
+            padding: 4px 8px !important;
+            text-align: right !important;
+            white-space: nowrap;
+            user-select: none;
+        }
+
+        .tab-grid-label.left-hand {
+            color: var(--green);
+        }
+
+        .tab-grid-label.right-hand {
+            color: var(--blue);
+        }
+
+        .tab-grid-label.string-name {
+            color: var(--accent);
+            font-family: monospace;
+        }
+
+        .tab-string-name-input {
+            width: 38px;
+            height: 28px;
+            text-align: center;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.85rem;
+            padding: 2px;
+            border-radius: 4px;
+            border: 1px solid var(--accent);
+            background-color: #1E202D;
+            color: var(--accent);
+        }
+
+        .tab-string-name-input:focus {
+            outline: 2px solid var(--accent-hover);
+            background-color: #252836;
+        }
+
+        .tab-grid-input {
+            width: 32px;
+            height: 30px;
+            text-align: center;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 0.9rem;
+            padding: 2px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background-color: #1E202D;
+            color: #FFF;
+        }
+
+        .tab-grid-input:focus {
+            outline: 2px solid var(--accent);
+            background-color: #252836;
+        }
+
+        .tab-grid-input.left-hand-input {
+            border-color: rgba(16, 185, 129, 0.4);
+            color: var(--green);
+            background-color: rgba(16, 185, 129, 0.1);
+        }
+
+        .tab-grid-input.right-hand-input {
+            border-color: rgba(59, 130, 246, 0.4);
+            color: var(--blue);
+            background-color: rgba(59, 130, 246, 0.1);
+        }
+
+        .tab-grid-input.left-hand-input:focus {
+            outline-color: var(--green);
+        }
+
+        .tab-grid-input.right-hand-input:focus {
+            outline-color: var(--blue);
+        }
+
+        .step-header {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            padding-bottom: 2px !important;
+        }
+
         @media (max-width: 600px) {
             body { padding: 10px 6px; }
             .controls button { flex: 1 1 100%; }
@@ -487,49 +659,49 @@
 
 <div class="container">
     <header>
-        <h1>🎸 Mój Asystent Gitarowy</h1>
-        <p>Twoje rutyny, stoper, metronom, taby i dziennik postępów.</p>
+        <h1>🎸 My Guitar Assistant</h1>
+        <p>Your routines, timer, metronome, tabs, and progress log.</p>
     </header>
 
-    <!-- STATYSTYKI -->
+    <!-- STATISTICS -->
     <div class="stats-grid">
         <div class="stat-card">
-            <h3 id="stat-streak">0 dni</h3>
-            <p>🔥 Seria</p>
+            <h3 id="stat-streak">0 days</h3>
+            <p>🔥 Streak</p>
         </div>
         <div class="stat-card">
             <h3 id="stat-total-time">0 min</h3>
-            <p>⏱️ Łącznie</p>
+            <p>⏱️ Total</p>
         </div>
         <div class="stat-card">
             <h3 id="stat-sessions">0</h3>
-            <p>✅ Rutyny</p>
+            <p>✅ Routines</p>
         </div>
     </div>
 
-    <!-- WYBÓR I USUWANIE RUTYNY -->
+    <!-- ROUTINE SELECTION AND DELETION -->
     <div class="card">
-        <h2>🗂️ Wybierz Rutynę</h2>
+        <h2>🗂️ Select Routine</h2>
         <div class="routine-select-container" style="display: flex; gap: 10px; flex-wrap: wrap;">
             <div class="form-group" style="flex-grow: 1; margin-bottom: 0;">
                 <select id="routine-select" onchange="switchActiveRoutine()"></select>
             </div>
-            <button class="secondary" onclick="deleteActiveRoutine()" style="background-color: #2E3245; color: #EF4444;">🗑️ Usuń tę rutynę</button>
+            <button class="secondary" onclick="deleteActiveRoutine()" style="background-color: #2E3245; color: #EF4444;">🗑️ Delete this routine</button>
         </div>
     </div>
 
-    <!-- ODTWARZACZ RUTYNY ZE ZEGATEM I METRONOMEM -->
+    <!-- ROUTINE PLAYER WITH TIMER AND METRONOME -->
     <div class="card">
-        <h2>⏱️ Sesja Ćwiczeń <span id="current-step" style="font-size: 0.85rem; color: var(--text-muted);">Krok 0/0</span></h2>
+        <h2>⏱️ Practice Session <span id="current-step" style="font-size: 0.85rem; color: var(--text-muted);">Step 0/0</span></h2>
         
         <div class="timer-display">
-            <div id="exercise-name" class="current-exercise-title">Kliknij "Start", aby rozpoczęć</div>
+            <div id="exercise-name" class="current-exercise-title">Click "Start" to begin</div>
             <div id="timer" class="time-left">00:00</div>
             
-            <!-- METRONOM POD ZEGAREM -->
+            <!-- METRONOME BELOW TIMER -->
             <div class="metronome-box">
                 <div class="metronome-header">
-                    <span>🎼 Metronom</span>
+                    <span>🎼 Metronome</span>
                     <div id="metro-indicator" class="beat-indicator"></div>
                 </div>
                 
@@ -543,110 +715,749 @@
                         <option value="4">4/4</option>
                         <option value="3">3/4</option>
                         <option value="2">2/4</option>
-                        <option value="0">Brak akcentu</option>
+                        <option value="0">No accent</option>
                     </select>
                 </div>
 
                 <div class="metronome-actions">
-                    <button id="metro-btn-start" class="secondary" onclick="toggleMetronome()" style="flex: 2;">▶ Włącz Metronom</button>
+                    <button id="metro-btn-start" class="secondary" onclick="toggleMetronome()" style="flex: 2;">▶ Turn Metronome On</button>
                     <button class="secondary" onclick="tapTempo()" style="flex: 1;">👆 Tap</button>
                 </div>
             </div>
 
+            <!-- PLAYER VIEW SELECTOR -->
+            <div id="player-view-selector" class="tab-mode-selector" style="margin-top: 10px; margin-bottom: 8px; display: none;">
+                <button type="button" id="player-view-svg-btn" class="tab-mode-btn active" onclick="setPlayerViewMode('svg')">🎨 Obraz z Generatora (SVG)</button>
+                <button type="button" id="player-view-text-btn" class="tab-mode-btn" onclick="setPlayerViewMode('text')">📝 Tabulatura Tekstowa</button>
+                <button type="button" id="player-view-both-btn" class="tab-mode-btn" onclick="setPlayerViewMode('both')">👁️ Oba Widoki</button>
+            </div>
+
             <div id="tab-display" class="tab-box" style="display: none;"></div>
-            <img id="image-display" class="exercise-image-preview" alt="Zdjęcie tabulatury">
+            <div id="svg-sheet-display" class="sheet-container" style="display: none;"></div>
+            <img id="image-display" class="exercise-image-preview" alt="Tablature image">
 
             <div class="controls">
                 <button id="btn-start" onclick="toggleTimer()">▶ Start</button>
-                <button class="secondary" onclick="nextExercise()">⏭ Następne</button>
+                <button class="secondary" onclick="nextExercise()">⏭ Next</button>
                 <button class="secondary" onclick="resetRoutine()">🔄 Reset</button>
-                <button class="green" onclick="logManualSession()">✅ Odznacz Trening</button>
+                <button class="green" onclick="logManualSession()">✅ Mark Workout Done</button>
             </div>
         </div>
     </div>
 
-    <!-- LISTA ĆWICZEŃ W AKTYWNEJ RUTYNIE -->
+    <!-- EXERCISE LIST IN ACTIVE ROUTINE -->
     <div class="card">
-        <h2>📋 Ćwiczenia w Rutynie</h2>
+        <h2>📋 Exercises in Routine</h2>
         <div id="exercise-list" class="exercise-list"></div>
     </div>
 
-    <!-- KREATOR / EDYTOR -->
+    <!-- CREATOR / EDITOR -->
     <div class="card">
-        <h2 id="form-title">➕ Dodaj Nowe Ćwiczenie</h2>
+        <h2 id="form-title">➕ Add New Exercise</h2>
         
         <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border);">
-            <label style="font-weight: bold; color: var(--text-main);">Stwórz nową rutynę:</label>
+            <label style="font-weight: bold; color: var(--text-main);">Create a new routine:</label>
             <div class="create-routine-box" style="display: flex; gap: 8px; margin-top: 6px;">
-                <input type="text" id="input-routine-name" placeholder="np. Technika i szybkość" style="flex-grow: 1;">
-                <button class="blue" onclick="addRoutine()">Utwórz Rutynę</button>
+                <input type="text" id="input-routine-name" placeholder="e.g. Technique & Speed" style="flex-grow: 1;">
+                <button class="blue" onclick="addRoutine()">Create Routine</button>
             </div>
         </div>
 
         <div>
             <input type="hidden" id="edit-exercise-index" value="-1">
-            <label id="form-subtitle" style="font-weight: bold; color: var(--text-main);">Dodaj ćwiczenie do wybranej rutyny:</label>
+            <label id="form-subtitle" style="font-weight: bold; color: var(--text-main);">Add an exercise to the selected routine:</label>
             <div class="form-group" style="margin-top: 6px;">
-                <input type="text" id="input-name" placeholder="np. Pajączek na rozgrzewkę">
+                <input type="text" id="input-name" placeholder="e.g. Warm-up Spider Walk">
             </div>
             <div class="form-group">
-                <label>Czas trwania (minuty):</label>
+                <label>Duration (minutes):</label>
                 <input type="number" id="input-time" value="5" min="1" max="60">
             </div>
+            
+            <!-- TAB GENERATOR BUILT INTO FORM -->
             <div class="form-group">
-                <label>Tabulatura / Notatki / Link (opcjonalnie):</label>
-                <textarea id="input-tab" rows="3" placeholder="Wklej taby tekstowe, akordy albo link..."></textarea>
+                <label style="font-weight: bold; color: var(--text-main);">🎸 Tablature & Finger Notation Generator:</label>
+
+                <!-- PREFERRED VIEW SELECTOR AT TOP OF GENERATOR -->
+                <div style="margin-top: 6px; margin-bottom: 12px; background: #14151F; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
+                    <label style="font-size: 0.8rem; color: var(--text-muted); font-weight: bold; display: block; margin-bottom: 4px;">👁️ Domyślny widok tego ćwiczenia w odtwarzaczu:</label>
+                    <select id="input-preferred-view">
+                        <option value="svg">🎨 Obraz z Generatora (Nuty SVG)</option>
+                        <option value="text">📝 Tabulatura tekstowa (ASCII)</option>
+                        <option value="both">👁️ Oba widoki (Nuty SVG + Tekst)</option>
+                    </select>
+                </div>
+                
+                <!-- VIEW SELECTOR IN FORM -->
+                <div class="tab-mode-selector" style="margin-bottom: 8px;">
+                    <button type="button" id="form-view-editor-btn" class="tab-mode-btn active" onclick="setFormViewDisplay('editor')">⚡ Generator / Edytor</button>
+                    <button type="button" id="form-view-preview-btn" class="tab-mode-btn" onclick="setFormViewDisplay('preview')">🎨 Obraz z Generatora (SVG)</button>
+                    <button type="button" id="form-view-both-btn" class="tab-mode-btn" onclick="setFormViewDisplay('both')">👁️ Oba Widoki</button>
+                </div>
+
+                <div id="tab-builder-container" class="tab-builder-container">
+                    <!-- MODE SELECTOR TABS -->
+                    <div class="tab-mode-selector">
+                        <button type="button" id="tab-mode-grid-btn" class="tab-mode-btn active" onclick="switchTabMode('grid')">⚡ Visual Grid (Sześciolinia)</button>
+                        <button type="button" id="tab-mode-text-btn" class="tab-mode-btn" onclick="switchTabMode('text')">📝 Raw Text (Tekstowy)</button>
+                    </div>
+
+                    <!-- VISUAL GRID CONTAINER -->
+                    <div id="tab-grid-editor">
+                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;">
+                            💡 <b>Wpisz progi (cyfry)</b> na strunach. Możesz <b>zmieniać litery strun</b> (strojenie). Na górze wpisz <b>palec naciskający</b> (lewa ręka), na dole <b>palec uderzający</b> (prawa ręka).
+                        </p>
+
+                        <div class="grid-controls-bar">
+                            <span>Długość:</span>
+                            <button type="button" class="secondary" onclick="setGridColumns(8)">8</button>
+                            <button type="button" class="secondary" onclick="setGridColumns(12)">12</button>
+                            <button type="button" class="secondary" onclick="setGridColumns(16)">16</button>
+                            <button type="button" class="secondary" onclick="setGridColumns(24)">24</button>
+                            <button type="button" class="secondary" onclick="setGridColumns(32)">32</button>
+                            <button type="button" class="blue" onclick="addGridColumn()">+ Krok</button>
+                            <button type="button" class="secondary" onclick="removeGridColumn()">- Krok</button>
+                        </div>
+                        <div class="grid-controls-bar" style="margin-top: 4px;">
+                            <span>Strojenie:</span>
+                            <button type="button" class="secondary" onclick="applyTuningPreset(['e','B','G','D','A','E'])">Standard E</button>
+                            <button type="button" class="secondary" onclick="applyTuningPreset(['e','B','G','D','A','D'])">Drop D</button>
+                            <button type="button" class="secondary" onclick="applyTuningPreset(['Eb','Bb','Gb','Db','Ab','Eb'])">Eb Standard</button>
+                            <button type="button" class="secondary" onclick="clearTabGrid()" style="margin-left: auto; color: #EF4444;">🧹 Wyczyść</button>
+                        </div>
+
+                        <div class="tab-grid-wrapper" style="margin-top: 8px;">
+                            <table class="tab-grid-table" id="visual-tab-table">
+                                <!-- Dynamic visual grid table rendered by JS -->
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- RAW TEXTAREA CONTAINER (HIDDEN IN GRID MODE) -->
+                    <div id="tab-text-editor" style="display: none;">
+                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">Linie z <b>L|</b> (palce lewej ręki) oraz <b>P|</b> (palce prawej ręki):</p>
+                        <textarea id="input-tab" rows="8" placeholder="L|--1--2--3--4--------------------------&#10;e|--------------------------------------&#10;B|--------------------------------------&#10;G|--------------------------------------&#10;D|--------------------------------------&#10;A|--------------------------------------&#10;E|--0--1--2--3--------------------------&#10;P|--p--p--p--p--------------------------" oninput="onRawTextInput()"></textarea>
+                    </div>
+                </div>
+
+                <button type="button" class="secondary" onclick="previewSvgInForm()" style="margin-top: 8px; width: 100%;">🎨 Odśwież Podgląd Nuty / SVG</button>
+                
+                <div id="form-svg-preview" class="sheet-container" style="display: none; margin-top: 10px;"></div>
             </div>
+
             <div class="form-group">
-                <label>Zdjęcie tabulatury / nut (opcjonalnie):</label>
+                <label>Tablature / Sheet music image (optional):</label>
                 <input type="file" id="input-image" accept="image/*">
             </div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <button id="btn-save-exercise" onclick="saveExercise()" style="flex-grow: 1;">Dodaj Ćwiczenie</button>
-                <button id="btn-cancel-edit" class="secondary" onclick="cancelEdit()" style="display: none;">Anuluj</button>
+                <button id="btn-save-exercise" onclick="saveExercise()" style="flex-grow: 1;">Add Exercise</button>
+                <button id="btn-cancel-edit" class="secondary" onclick="cancelEdit()" style="display: none;">Cancel</button>
             </div>
         </div>
     </div>
 
     <!-- EXPORT / IMPORT -->
     <div class="card">
-        <h2>📲 Synchronizacja i Backup</h2>
+        <h2>📲 Sync & Backup</h2>
         <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">
-            Pobierz swoje rutyny oraz historię treningów do pliku, aby przenieść je na inne urządzenie.
+            Download your routines and workout history as a file to transfer them to another device.
         </p>
         <div class="sync-buttons">
-            <button class="blue" onclick="exportData()">📥 Eksportuj Dane (.json)</button>
-            <button class="secondary" onclick="document.getElementById('import-file').click()">📤 Importuj Dane</button>
+            <button class="blue" onclick="exportData()">📥 Export Data (.json)</button>
+            <button class="secondary" onclick="document.getElementById('import-file').click()">📤 Import Data</button>
             <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importData(event)">
         </div>
     </div>
 
-    <!-- KALENDARZ -->
+    <!-- CALENDAR -->
     <div class="card">
-        <h2>📅 Kalendarz Postępów</h2>
+        <h2>📅 Progress Calendar</h2>
         <div id="calendar-title" style="font-weight: bold; margin-bottom: 8px; color: var(--accent); font-size: 0.95rem;"></div>
         <div id="calendar" class="calendar-grid"></div>
 
-        <h3 style="margin-top: 15px; font-size: 0.9rem; color: var(--text-main);">📝 Ostatnie treningi:</h3>
+        <h3 style="margin-top: 15px; font-size: 0.9rem; color: var(--text-main);">📝 Recent Workouts:</h3>
         <div id="log-list" class="log-list"></div>
     </div>
 </div>
 
 <script>
-    // DANE
+    // --- VISUAL TAB GRID STATE & INTERACTIVE BUILDER ---
+    let currentTabMode = 'grid';
+    let tabGridData = {
+        cols: 16,
+        stringNames: ['e', 'B', 'G', 'D', 'A', 'E'],
+        L: Array(16).fill(''),
+        strings: [
+            Array(16).fill(''),
+            Array(16).fill(''),
+            Array(16).fill(''),
+            Array(16).fill(''),
+            Array(16).fill(''),
+            Array(16).fill('')
+        ],
+        P: Array(16).fill('')
+    };
+
+    function renderTabGridUI() {
+        const table = document.getElementById('visual-tab-table');
+        if (!table) return;
+
+        let html = '<thead><tr><th></th>';
+        for (let c = 0; c < tabGridData.cols; c++) {
+            html += `<th class="step-header">${c + 1}</th>`;
+        }
+        html += '</tr></thead><tbody>';
+
+        const rowConfigs = [
+            { label: '✋ Lewa (nacisnąć)', type: 'L', class: 'left-hand', inputClass: 'left-hand-input' },
+            { label: tabGridData.stringNames[0], type: 'str', strIdx: 0, class: 'string-name', inputClass: '' },
+            { label: tabGridData.stringNames[1], type: 'str', strIdx: 1, class: 'string-name', inputClass: '' },
+            { label: tabGridData.stringNames[2], type: 'str', strIdx: 2, class: 'string-name', inputClass: '' },
+            { label: tabGridData.stringNames[3], type: 'str', strIdx: 3, class: 'string-name', inputClass: '' },
+            { label: tabGridData.stringNames[4], type: 'str', strIdx: 4, class: 'string-name', inputClass: '' },
+            { label: tabGridData.stringNames[5], type: 'str', strIdx: 5, class: 'string-name', inputClass: '' },
+            { label: '🖐️ Prawa (uderzyć)', type: 'P', class: 'right-hand', inputClass: 'right-hand-input' }
+        ];
+
+        rowConfigs.forEach((r, rowIdx) => {
+            html += '<tr>';
+            if (r.type === 'str') {
+                html += `<td class="tab-grid-label ${r.class}"><input type="text" class="tab-string-name-input" data-str-idx="${r.strIdx}" value="${tabGridData.stringNames[r.strIdx]}" oninput="onStringNameInput(this)"></td>`;
+            } else {
+                html += `<td class="tab-grid-label ${r.class}">${r.label}</td>`;
+            }
+
+            for (let c = 0; c < tabGridData.cols; c++) {
+                let val = '';
+                if (r.type === 'L') val = tabGridData.L[c] || '';
+                else if (r.type === 'P') val = tabGridData.P[c] || '';
+                else if (r.type === 'str') val = tabGridData.strings[r.strIdx][c] || '';
+
+                html += `<td><input type="text" class="tab-grid-input ${r.inputClass}" data-row-type="${r.type}" data-str-idx="${r.strIdx !== undefined ? r.strIdx : -1}" data-row-idx="${rowIdx}" data-col-idx="${c}" value="${val}" oninput="onGridCellInput(this)" onkeydown="handleGridKeyDown(event, this)"></td>`;
+            }
+            html += '</tr>';
+        });
+
+        html += '</tbody>';
+        table.innerHTML = html;
+    }
+
+    function onStringNameInput(el) {
+        const strIdx = parseInt(el.getAttribute('data-str-idx'));
+        const val = el.value.trim() || (['e','B','G','D','A','E'][strIdx]);
+        tabGridData.stringNames[strIdx] = val;
+        syncGridToText();
+    }
+
+    function applyTuningPreset(presetArr) {
+        if (!Array.isArray(presetArr) || presetArr.length < 6) return;
+        for (let i = 0; i < 6; i++) {
+            tabGridData.stringNames[i] = presetArr[i];
+        }
+        renderTabGridUI();
+        syncGridToText();
+    }
+
+    function handleGridKeyDown(e, el) {
+        const row = parseInt(el.getAttribute('data-row-idx'));
+        const col = parseInt(el.getAttribute('data-col-idx'));
+        
+        let targetRow = row;
+        let targetCol = col;
+
+        if (e.key === 'ArrowRight') targetCol = col + 1;
+        else if (e.key === 'ArrowLeft') targetCol = col - 1;
+        else if (e.key === 'ArrowDown') targetRow = row + 1;
+        else if (e.key === 'ArrowUp') targetRow = row - 1;
+        else return;
+
+        const nextEl = document.querySelector(`.tab-grid-input[data-row-idx="${targetRow}"][data-col-idx="${targetCol}"]`);
+        if (nextEl) {
+            e.preventDefault();
+            nextEl.focus();
+            nextEl.select();
+        }
+    }
+
+    function onGridCellInput(el) {
+        const rType = el.getAttribute('data-row-type');
+        const strIdx = parseInt(el.getAttribute('data-str-idx'));
+        const col = parseInt(el.getAttribute('data-col-idx'));
+        const val = el.value;
+
+        if (rType === 'L') tabGridData.L[col] = val;
+        else if (rType === 'P') tabGridData.P[col] = val;
+        else if (rType === 'str') tabGridData.strings[strIdx][col] = val;
+
+        syncGridToText();
+    }
+
+    function gridToText() {
+        let stepWidths = [];
+
+        for (let col = 0; col < tabGridData.cols; col++) {
+            let maxLen = 1;
+            let lVal = (tabGridData.L[col] || '').trim();
+            let pVal = (tabGridData.P[col] || '').trim();
+            if (lVal.length > maxLen) maxLen = lVal.length;
+            if (pVal.length > maxLen) maxLen = pVal.length;
+
+            for (let s = 0; s < 6; s++) {
+                let val = (tabGridData.strings[s][col] || '').trim();
+                if (val.length > maxLen) maxLen = val.length;
+            }
+            stepWidths.push(maxLen + 1);
+        }
+
+        let resultLines = [];
+
+        // L line
+        let lContent = tabGridData.L.map((val, c) => {
+            let cell = (val || '').trim() || '-';
+            return cell.padEnd(stepWidths[c], '-');
+        }).join('');
+        resultLines.push(`L|${lContent}`);
+
+        // Strings lines
+        for (let s = 0; s < 6; s++) {
+            let label = tabGridData.stringNames[s] || ['e','B','G','D','A','E'][s];
+            let sContent = tabGridData.strings[s].map((val, c) => {
+                let cell = (val || '').trim() || '-';
+                return cell.padEnd(stepWidths[c], '-');
+            }).join('');
+            resultLines.push(`${label}|${sContent}`);
+        }
+
+        // P line
+        let pContent = tabGridData.P.map((val, c) => {
+            let cell = (val || '').trim() || '-';
+            return cell.padEnd(stepWidths[c], '-');
+        }).join('');
+        resultLines.push(`P|${pContent}`);
+
+        return resultLines.join('\n');
+    }
+
+    function textToGrid(rawText) {
+        if (!rawText || !rawText.trim()) {
+            resetTabGrid(16);
+            return;
+        }
+
+        let lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+        let lLine = "", pLine = "";
+        let stringLines = [];
+
+        lines.forEach(line => {
+            let pipeIdx = line.indexOf('|');
+            if (pipeIdx !== -1) {
+                let prefix = line.substring(0, pipeIdx).trim();
+                let content = line.substring(pipeIdx + 1);
+                if (content.endsWith('|')) content = content.slice(0, -1);
+
+                let prefixUpper = prefix.toUpperCase();
+                if (prefixUpper === 'L') {
+                    lLine = content;
+                } else if (prefixUpper === 'P') {
+                    pLine = content;
+                } else {
+                    stringLines.push({ label: prefix, content: content });
+                }
+            }
+        });
+
+        if (stringLines.length < 6) {
+            resetTabGrid(16);
+            return;
+        }
+
+        let parsedNames = [];
+        let parsedStrings = [];
+        for (let i = 0; i < 6; i++) {
+            parsedNames.push(stringLines[i].label);
+            parsedStrings.push(stringLines[i].content);
+        }
+
+        let maxLen = Math.max(...parsedStrings.map(s => s.length), lLine.length, pLine.length);
+
+        let newGrid = {
+            cols: 0,
+            stringNames: parsedNames,
+            L: [],
+            strings: [[], [], [], [], [], []],
+            P: []
+        };
+
+        let idx = 0;
+        while (idx < maxLen) {
+            let stepLen = 1;
+            for (let s = 0; s < 6; s++) {
+                let strContent = parsedStrings[s] || '';
+                let match = strContent.substring(idx).match(/^(\d+)/);
+                if (match && match[1].length > stepLen) {
+                    stepLen = match[1].length;
+                }
+            }
+
+            let lVal = (lLine.substring(idx, idx + stepLen) || '').replace(/-/g, '').trim();
+            let pVal = (pLine.substring(idx, idx + stepLen) || '').replace(/-/g, '').trim();
+
+            newGrid.L.push(lVal);
+            newGrid.P.push(pVal);
+
+            for (let s = 0; s < 6; s++) {
+                let strContent = parsedStrings[s] || '';
+                let val = strContent.substring(idx, idx + stepLen).replace(/-/g, '').trim();
+                newGrid.strings[s].push(val);
+            }
+
+            idx += stepLen;
+            if (idx < maxLen) {
+                let allDashes = true;
+                for (let s = 0; s < 6; s++) {
+                    let char = (parsedStrings[s] || '')[idx];
+                    if (char !== '-' && char !== undefined && char !== ' ') {
+                        allDashes = false;
+                        break;
+                    }
+                }
+                if (allDashes) idx++;
+            }
+        }
+
+        if (newGrid.L.length === 0) {
+            resetTabGrid(16);
+            return;
+        }
+
+        tabGridData = {
+            cols: newGrid.L.length,
+            stringNames: newGrid.stringNames,
+            L: newGrid.L,
+            strings: newGrid.strings,
+            P: newGrid.P
+        };
+        renderTabGridUI();
+    }
+
+    function syncGridToText() {
+        const text = gridToText();
+        const inputTab = document.getElementById('input-tab');
+        if (inputTab) {
+            inputTab.value = text;
+        }
+        previewSvgInForm();
+    }
+
+    function onRawTextInput() {
+        const rawText = document.getElementById('input-tab').value;
+        textToGrid(rawText);
+        previewSvgInForm();
+    }
+
+    function switchTabMode(mode) {
+        currentTabMode = mode;
+        const gridEditor = document.getElementById('tab-grid-editor');
+        const textEditor = document.getElementById('tab-text-editor');
+        const gridBtn = document.getElementById('tab-mode-grid-btn');
+        const textBtn = document.getElementById('tab-mode-text-btn');
+
+        if (mode === 'grid') {
+            gridEditor.style.display = 'block';
+            textEditor.style.display = 'none';
+            gridBtn.classList.add('active');
+            textBtn.classList.remove('active');
+            const rawText = document.getElementById('input-tab').value;
+            textToGrid(rawText);
+        } else {
+            gridEditor.style.display = 'none';
+            textEditor.style.display = 'block';
+            textBtn.classList.add('active');
+            gridBtn.classList.remove('active');
+            syncGridToText();
+        }
+    }
+
+    function setGridColumns(n) {
+        if (n < 1) n = 1;
+        if (n > 64) n = 64;
+
+        while (tabGridData.L.length < n) {
+            tabGridData.L.push('');
+            tabGridData.P.push('');
+            for (let s = 0; s < 6; s++) tabGridData.strings[s].push('');
+        }
+
+        if (tabGridData.L.length > n) {
+            tabGridData.L = tabGridData.L.slice(0, n);
+            tabGridData.P = tabGridData.P.slice(0, n);
+            for (let s = 0; s < 6; s++) {
+                tabGridData.strings[s] = tabGridData.strings[s].slice(0, n);
+            }
+        }
+
+        tabGridData.cols = n;
+        renderTabGridUI();
+        syncGridToText();
+    }
+
+    function addGridColumn() {
+        setGridColumns(tabGridData.cols + 1);
+    }
+
+    function removeGridColumn() {
+        if (tabGridData.cols > 1) {
+            setGridColumns(tabGridData.cols - 1);
+        }
+    }
+
+    function clearTabGrid() {
+        for (let c = 0; c < tabGridData.cols; c++) {
+            tabGridData.L[c] = '';
+            tabGridData.P[c] = '';
+            for (let s = 0; s < 6; s++) {
+                tabGridData.strings[s][c] = '';
+            }
+        }
+        renderTabGridUI();
+        syncGridToText();
+    }
+
+    function resetTabGrid(cols = 16) {
+        tabGridData = {
+            cols: cols,
+            stringNames: ['e', 'B', 'G', 'D', 'A', 'E'],
+            L: Array(cols).fill(''),
+            strings: Array.from({ length: 6 }, () => Array(cols).fill('')),
+            P: Array(cols).fill('')
+        };
+        renderTabGridUI();
+    }
+
+    // --- SVG TAB GENERATOR FUNCTION (ULTRA LEGIBLE) ---
+    function generateSvgFromText(rawText) {
+        if (!rawText) return '';
+
+        let lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+
+        let leftFingersContent = "";
+        let rightFingersContent = "";
+        let tabStrings = [];
+
+        lines.forEach(line => {
+            let pipeIdx = line.indexOf('|');
+            if (pipeIdx !== -1) {
+                let prefix = line.substring(0, pipeIdx).trim();
+                let content = line.substring(pipeIdx + 1);
+                if (content.endsWith('|')) content = content.slice(0, -1);
+
+                let prefixUpper = prefix.toUpperCase();
+                if (prefixUpper === 'L') {
+                    leftFingersContent = content;
+                } else if (prefixUpper === 'P') {
+                    rightFingersContent = content;
+                } else {
+                    tabStrings.push({ label: prefix, content: content });
+                }
+            }
+        });
+
+        if (tabStrings.length < 6) {
+            return '';
+        }
+
+        tabStrings = tabStrings.slice(0, 6);
+        let stringContents = tabStrings.map(s => s.content);
+        let maxLen = Math.max(...stringContents.map(s => s.length), leftFingersContent.length, rightFingersContent.length);
+
+        let steps = [];
+        let idx = 0;
+        while (idx < maxLen) {
+            let stepLen = 1;
+            for (let s = 0; s < 6; s++) {
+                let match = stringContents[s].substring(idx).match(/^(\d+)/);
+                if (match && match[1].length > stepLen) {
+                    stepLen = match[1].length;
+                }
+            }
+
+            let lVal = leftFingersContent.substring(idx, idx + stepLen).replace(/-/g, '').trim();
+            let pVal = rightFingersContent.substring(idx, idx + stepLen).replace(/-/g, '').trim();
+            let stringVals = [];
+            for (let s = 0; s < 6; s++) {
+                let val = stringContents[s].substring(idx, idx + stepLen).replace(/-/g, '').trim();
+                stringVals.push(val);
+            }
+
+            steps.push({
+                L: lVal,
+                P: pVal,
+                strings: stringVals
+            });
+
+            idx += stepLen;
+            if (idx < maxLen) {
+                let allDashes = true;
+                for (let s = 0; s < 6; s++) {
+                    let char = stringContents[s][idx];
+                    if (char !== '-' && char !== undefined && char !== ' ') {
+                        allDashes = false;
+                        break;
+                    }
+                }
+                if (allDashes) idx++;
+            }
+        }
+
+        if (steps.length === 0) return '';
+
+        const paddingLeft = 55;
+        const paddingRight = 35;
+        const lineSpacing = 16;
+        const stepX = 30;
+        const blockSpacing = 85;
+        const systemHeight = 5 * lineSpacing;
+
+        const viewBoxWidth = 840;
+        const usableWidth = viewBoxWidth - paddingLeft - paddingRight;
+        const stepsPerBlock = Math.max(1, Math.floor(usableWidth / stepX));
+        const totalBlocks = Math.ceil(steps.length / stepsPerBlock);
+        const viewBoxHeight = 65 + totalBlocks * (systemHeight + blockSpacing);
+
+        let svgHtml = `<svg class="tab-svg-render" viewBox="0 0 ${viewBoxWidth} ${viewBoxHeight}" xmlns="http://www.w3.org/2000/svg" style="background:#FFFFFF; border-radius:10px; padding:10px; box-shadow:0 4px 15px rgba(0,0,0,0.15);">`;
+
+        for (let b = 0; b < totalBlocks; b++) {
+            let startX = paddingLeft;
+            let startY = 45 + b * (systemHeight + blockSpacing);
+            let blockSteps = steps.slice(b * stepsPerBlock, (b + 1) * stepsPerBlock);
+            let blockLen = blockSteps.length;
+            let endX = startX + blockLen * stepX;
+
+            for (let i = 0; i < 6; i++) {
+                let y = startY + i * lineSpacing;
+                svgHtml += `<line x1="${startX}" y1="${y}" x2="${endX}" y2="${y}" stroke="#64748B" stroke-width="1.5" />`;
+            }
+
+            svgHtml += `<line x1="${startX}" y1="${startY}" x2="${startX}" y2="${startY + systemHeight}" stroke="#0F172A" stroke-width="3" stroke-linecap="round" />`;
+            svgHtml += `<line x1="${endX}" y1="${startY}" x2="${endX}" y2="${startY + systemHeight}" stroke="#0F172A" stroke-width="3" stroke-linecap="round" />`;
+
+            for (let strIdx = 0; strIdx < 6; strIdx++) {
+                let posY = startY + strIdx * lineSpacing + 4.5;
+                let label = tabStrings[strIdx].label;
+                svgHtml += `<text x="${startX - 16}" y="${posY}" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="13" fill="#0F172A" text-anchor="middle">${label}</text>`;
+            }
+
+            for (let step = 0; step < blockLen; step++) {
+                let item = blockSteps[step];
+                let posX = startX + step * stepX + (stepX / 2);
+
+                if (item.L) {
+                    let topY = startY - 12;
+                    svgHtml += `<circle cx="${posX}" cy="${topY - 4}" r="9" fill="#10B981" />`;
+                    svgHtml += `<text x="${posX}" y="${topY - 0.5}" font-family="system-ui, sans-serif" font-weight="900" font-size="11" fill="#FFFFFF" text-anchor="middle">${item.L}</text>`;
+                }
+
+                for (let strIdx = 0; strIdx < 6; strIdx++) {
+                    let fret = item.strings[strIdx];
+                    if (fret && fret !== '-' && fret !== '') {
+                        let posY = startY + strIdx * lineSpacing;
+                        let rectW = fret.length > 1 ? 22 : 17;
+                        let rectH = 17;
+                        svgHtml += `<rect x="${posX - (rectW/2)}" y="${posY - (rectH/2)}" width="${rectW}" height="${rectH}" rx="4" fill="#FFFFFF" stroke="#0F172A" stroke-width="1.5" />`;
+                        svgHtml += `<text x="${posX}" y="${posY + 4}" font-family="ui-monospace, monospace" font-weight="900" font-size="13" fill="#0F172A" text-anchor="middle">${fret}</text>`;
+                    }
+                }
+
+                if (item.P) {
+                    let bottomY = startY + systemHeight + 20;
+                    svgHtml += `<circle cx="${posX}" cy="${bottomY - 4}" r="9" fill="#3B82F6" />`;
+                    svgHtml += `<text x="${posX}" y="${bottomY - 0.5}" font-family="system-ui, sans-serif" font-weight="900" font-size="11" fill="#FFFFFF" text-anchor="middle">${item.P}</text>`;
+                }
+            }
+        }
+
+        svgHtml += `</svg>`;
+        return svgHtml;
+    }
+
+    let formViewDisplayMode = 'editor';
+    let playerViewMode = localStorage.getItem('guitar_player_view_mode') || 'svg';
+
+    function setFormViewDisplay(mode) {
+        formViewDisplayMode = mode;
+        const builderContainer = document.getElementById('tab-builder-container');
+        const previewContainer = document.getElementById('form-svg-preview');
+
+        const editorBtn = document.getElementById('form-view-editor-btn');
+        const previewBtn = document.getElementById('form-view-preview-btn');
+        const bothBtn = document.getElementById('form-view-both-btn');
+
+        if (editorBtn) editorBtn.classList.toggle('active', mode === 'editor');
+        if (previewBtn) previewBtn.classList.toggle('active', mode === 'preview');
+        if (bothBtn) bothBtn.classList.toggle('active', mode === 'both');
+
+        if (mode === 'editor') {
+            if (builderContainer) builderContainer.style.display = 'block';
+            if (previewContainer) previewContainer.style.display = 'none';
+        } else if (mode === 'preview') {
+            if (builderContainer) builderContainer.style.display = 'none';
+            previewSvgInForm();
+        } else { // both
+            if (builderContainer) builderContainer.style.display = 'block';
+            previewSvgInForm();
+        }
+    }
+
+    function setPlayerViewMode(mode) {
+        playerViewMode = mode;
+        localStorage.setItem('guitar_player_view_mode', mode);
+
+        let currentRoutine = routines[activeRoutineIndex];
+        if (currentRoutine && currentRoutine.exercises && currentRoutine.exercises[currentIndex]) {
+            currentRoutine.exercises[currentIndex].preferredView = mode;
+            localStorage.setItem('guitar_routines', JSON.stringify(routines));
+        }
+
+        const svgBtn = document.getElementById('player-view-svg-btn');
+        const textBtn = document.getElementById('player-view-text-btn');
+        const bothBtn = document.getElementById('player-view-both-btn');
+
+        if (svgBtn) svgBtn.classList.toggle('active', mode === 'svg');
+        if (textBtn) textBtn.classList.toggle('active', mode === 'text');
+        if (bothBtn) bothBtn.classList.toggle('active', mode === 'both');
+
+        updatePlayer();
+    }
+
+    function previewSvgInForm() {
+        const text = document.getElementById('input-tab').value;
+        const container = document.getElementById('form-svg-preview');
+        if (!container) return;
+        const svg = generateSvgFromText(text);
+
+        if (svg) {
+            container.innerHTML = svg;
+            container.style.display = 'block';
+        } else {
+            container.style.display = 'none';
+        }
+    }
+
+
+    // --- DATA ---
     let routines = JSON.parse(localStorage.getItem('guitar_routines')) || [
         {
-            name: "Rutyna Podstawowa (Domyślna)",
+            name: "Basic Routine (Default)",
             exercises: [
-                { name: "1. Rozgrzewka: Pajączek", time: 5, tab: "e|-----------------------------------| \nB|-----------------------------------| \nG|-----------------------------------| \nD|-----------------------------------| \nA|-----------------------------------| \nE|--1-2-3-4--2-3-4-5--3-4-5-6--4-5-6-7|", image: "" },
-                { name: "2. Skala Pentatoniczna A-moll", time: 10, tab: "e|--------------------5-8--|\nB|--------------5-8--------|\nG|--------5-7--------------|\nD|--5-7--------------------|\nA|-------------------------|\nE|-------------------------|", image: "" }
+                { name: "1. Warm-up: Spider Walk", time: 5, tab: "L|--1--2--3--4--------------------------1--2--3--4--------------\ne|--------------------------------------------------------------3--2--1--0--\nB|--------------------------------------------------0--1--2--3--------------\nG|--------------------------------------3--2--1--0--------------------------\nD|--------------------------0--1--2--3--------------------------------------\nA|--------------3--2--1--0--------------------------------------------------\nE|--0--1--2--3--------------------------------------------------------------\nP|--p--p--p--p--i--i--i--i--m--m--m--m--a--a--a--a--p--i--m--a--p--i--m--a--", image: "" },
+                { name: "2. A Minor Pentatonic Scale", time: 10, tab: "e|--------------------5-8--|\nB|--------------5-8--------|\nG|--------5-7--------------|\nD|--5-7--------------------|\nA|-------------------------|\nE|-------------------------|", image: "" }
             ]
         },
         {
-            name: "Rutyna Zaawansowana",
+            name: "Advanced Routine",
             exercises: [
-                { name: "1. Alternate Picking", time: 10, tab: "e|--1-2-3-4-1-2-3-4--|\nB|-------------------|\n", image: "" },
-                { name: "2. Sweep Picking", time: 15, tab: "e|--5-8-5-------|\nB|--------6-----|", image: "" }
+                { name: "1. Alternate Picking", time: 10, tab: "e|--1-2-3-4-1-2-3-4--|\nB|-------------------|\nG|-------------------|\nD|-------------------|\nA|-------------------|\nE|-------------------|", image: "" },
+                { name: "2. Sweep Picking", time: 15, tab: "e|--5-8-5-----------|\nB|--------6---------|\nG|----------7-------|\nD|------------7-----|\nA|--------------8-5-|\nE|------------------|", image: "" }
             ]
         }
     ];
@@ -661,7 +1472,7 @@
 
     if (activeRoutineIndex >= routines.length) activeRoutineIndex = 0;
 
-    // --- LOGIKA METRONOMU (Web Audio API) ---
+    // --- METRONOME LOGIC (Web Audio API) ---
     let audioCtx = null;
     let metroBpm = 120;
     let metroIsRunning = false;
@@ -737,7 +1548,7 @@
         } else {
             metroIsRunning = true;
             currentBeat = 0;
-            btn.innerText = "⏸ Wyłącz Metronom";
+            btn.innerText = "⏸ Turn Metronome Off";
             btn.style.backgroundColor = "#EAB308";
             
             let interval = (60 / metroBpm) * 1000;
@@ -751,7 +1562,7 @@
             clearInterval(metroTimerId);
             metroIsRunning = false;
             const btn = document.getElementById('metro-btn-start');
-            btn.innerText = "▶ Włącz Metronom";
+            btn.innerText = "▶ Turn Metronome On";
             btn.style.backgroundColor = "";
         }
     }
@@ -782,7 +1593,7 @@
         }
     }
 
-    // --- PODSTAWOWA LOGIKA APLIKACJI ---
+    // --- CORE APPLICATION LOGIC ---
     function saveData() {
         localStorage.setItem('guitar_routines', JSON.stringify(routines));
         localStorage.setItem('guitar_active_routine', activeRoutineIndex);
@@ -804,7 +1615,7 @@
         routines.forEach((r, idx) => {
             const opt = document.createElement('option');
             opt.value = idx;
-            opt.innerText = `${r.name} (${r.exercises.length} ćw.)`;
+            opt.innerText = `${r.name} (${r.exercises.length} ex.)`;
             if(idx === activeRoutineIndex) opt.selected = true;
             selectEl.appendChild(opt);
         });
@@ -827,7 +1638,7 @@
         const nameInput = document.getElementById('input-routine-name');
         const name = nameInput.value.trim();
         if(!name) {
-            alert("Wpisz nazwę nowej rutyny!");
+            alert("Please enter a name for the new routine!");
             return;
         }
         routines.push({ name: name, exercises: [] });
@@ -839,12 +1650,12 @@
 
     function deleteActiveRoutine() {
         if(routines.length <= 1) {
-            alert("❌ Nie możesz usunąć ostatniej pozostałej rutyny!");
+            alert("❌ You cannot delete the last remaining routine!");
             return;
         }
 
         const routineName = routines[activeRoutineIndex].name;
-        if(confirm(`Czy na pewno chcesz usunąć całą rutynę "${routineName}"?`)) {
+        if(confirm(`Are you sure you want to delete the entire routine "${routineName}"?`)) {
             routines.splice(activeRoutineIndex, 1);
             activeRoutineIndex = 0;
             currentIndex = 0;
@@ -881,7 +1692,7 @@
             }
         }
 
-        document.getElementById('stat-streak').innerText = `${streak} dni`;
+        document.getElementById('stat-streak').innerText = `${streak} days`;
     }
 
     function renderCalendar() {
@@ -892,10 +1703,10 @@
         const year = now.getFullYear();
         const month = now.getMonth();
 
-        const monthNames = ["Styczeń", "Luty", "Marzec", "Kwiecień", "Maj", "Czerwiec", "Lipiec", "Sierpień", "Wrzesień", "Październik", "Listopad", "Grudzień"];
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         document.getElementById('calendar-title').innerText = `${monthNames[month]} ${year}`;
 
-        const daysHead = ["Pn", "Wt", "Śr", "Cz", "Pt", "Sb", "Nd"];
+        const daysHead = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
         daysHead.forEach(d => {
             const h = document.createElement('div');
             h.className = 'calendar-day-head';
@@ -934,7 +1745,7 @@
         const listEl = document.getElementById('log-list');
         listEl.innerHTML = '';
         if(logs.length === 0) {
-            listEl.innerHTML = '<p style="color: var(--text-muted); font-size: 0.8rem;">Brak historii. Dokończ pierwszą rutynę!</p>';
+            listEl.innerHTML = '<p style="color: var(--text-muted); font-size: 0.8rem;">No history yet. Complete your first routine!</p>';
             return;
         }
 
@@ -945,14 +1756,14 @@
             item.className = 'log-item';
             item.innerHTML = `
                 <span>📅 ${l.date} - ${l.title} <strong style="color: var(--green);">⏱️ ${l.duration}m</strong></span>
-                <button class="btn-action btn-del" onclick="deleteLog(${l.originalIndex})">Usuń</button>
+                <button class="btn-action btn-del" onclick="deleteLog(${l.originalIndex})">Delete</button>
             `;
             listEl.appendChild(item);
         });
     }
 
     function deleteLog(idx) {
-        if(confirm("Czy na pewno chcesz usunąć ten wpis z dziennika?")) {
+        if(confirm("Are you sure you want to delete this entry from the log?")) {
             logs.splice(idx, 1);
             saveData();
         }
@@ -976,7 +1787,7 @@
             duration: totalMin || 15
         });
         saveData();
-        alert("✅ Oznaczono dzisiejszy trening!");
+        alert("✅ Marked today's workout as completed!");
     }
 
     function renderList() {
@@ -987,7 +1798,7 @@
         let exercises = currentRoutine.exercises;
 
         if(exercises.length === 0) {
-            listEl.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem;">Brak ćwiczeń w tej rutynie. Dodaj pierwsze poniżej!</p>';
+            listEl.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem;">No exercises in this routine. Add your first one below!</p>';
             updatePlayer();
             return;
         }
@@ -1000,8 +1811,8 @@
             item.onclick = () => selectExercise(idx);
             
             let extraInfo = [];
-            if(ex.tab && ex.tab.trim() !== "") extraInfo.push("tekst");
-            if(ex.image) extraInfo.push("zdjęcie");
+            if(ex.tab && ex.tab.trim() !== "") extraInfo.push("tablature");
+            if(ex.image) extraInfo.push("image");
 
             item.innerHTML = `
                 <div class="exercise-info">
@@ -1009,8 +1820,8 @@
                     <p>⏱️ ${ex.time} min ${extraInfo.length ? '• 📄 ' + extraInfo.join(', ') : ''}</p>
                 </div>
                 <div class="exercise-actions">
-                    <button class="btn-action btn-edit" onclick="event.stopPropagation(); editExercise(${idx})">Edytuj</button>
-                    <button class="btn-action btn-del" onclick="event.stopPropagation(); deleteExercise(${idx})">Usuń</button>
+                    <button class="btn-action btn-edit" onclick="event.stopPropagation(); editExercise(${idx})">Edit</button>
+                    <button class="btn-action btn-del" onclick="event.stopPropagation(); deleteExercise(${idx})">Delete</button>
                 </div>
             `;
             listEl.appendChild(item);
@@ -1034,16 +1845,17 @@
         let exercises = currentRoutine.exercises;
 
         if(exercises.length === 0) {
-            document.getElementById('exercise-name').innerText = "Brak ćwiczeń w rutynie";
+            document.getElementById('exercise-name').innerText = "No exercises in routine";
             document.getElementById('timer').innerText = "00:00";
             document.getElementById('tab-display').style.display = "none";
+            document.getElementById('svg-sheet-display').style.display = "none";
             document.getElementById('image-display').style.display = "none";
-            document.getElementById('current-step').innerText = "Krok 0/0";
+            document.getElementById('current-step').innerText = "Step 0/0";
             return;
         }
 
         const current = exercises[currentIndex];
-        document.getElementById('current-step').innerText = `Krok ${currentIndex + 1}/${exercises.length}`;
+        document.getElementById('current-step').innerText = `Step ${currentIndex + 1}/${exercises.length}`;
         document.getElementById('exercise-name').innerText = current.name;
         
         if(!isRunning) {
@@ -1052,11 +1864,46 @@
         }
 
         const tabBox = document.getElementById('tab-display');
+        const svgSheetBox = document.getElementById('svg-sheet-display');
+        const viewSelector = document.getElementById('player-view-selector');
+
+        let activeViewMode = current.preferredView || playerViewMode || 'svg';
+
         if(current.tab && current.tab.trim() !== "") {
             tabBox.innerText = current.tab;
-            tabBox.style.display = "block";
+
+            let svg = generateSvgFromText(current.tab);
+            if (svg) {
+                svgSheetBox.innerHTML = svg;
+                if (viewSelector) viewSelector.style.display = "flex";
+
+                const svgBtn = document.getElementById('player-view-svg-btn');
+                const textBtn = document.getElementById('player-view-text-btn');
+                const bothBtn = document.getElementById('player-view-both-btn');
+
+                if (svgBtn) svgBtn.classList.toggle('active', activeViewMode === 'svg');
+                if (textBtn) textBtn.classList.toggle('active', activeViewMode === 'text');
+                if (bothBtn) bothBtn.classList.toggle('active', activeViewMode === 'both');
+
+                if (activeViewMode === 'svg') {
+                    svgSheetBox.style.display = "block";
+                    tabBox.style.display = "none";
+                } else if (activeViewMode === 'text') {
+                    svgSheetBox.style.display = "none";
+                    tabBox.style.display = "block";
+                } else { // both
+                    svgSheetBox.style.display = "block";
+                    tabBox.style.display = "block";
+                }
+            } else {
+                svgSheetBox.style.display = "none";
+                tabBox.style.display = "block";
+                if (viewSelector) viewSelector.style.display = "none";
+            }
         } else {
             tabBox.style.display = "none";
+            svgSheetBox.style.display = "none";
+            if (viewSelector) viewSelector.style.display = "none";
         }
 
         const imgBox = document.getElementById('image-display');
@@ -1084,11 +1931,11 @@
         if(isRunning) {
             clearInterval(timerId);
             isRunning = false;
-            btn.innerText = "▶ Wznów";
+            btn.innerText = "▶ Resume";
             btn.style.backgroundColor = "var(--accent)";
         } else {
             isRunning = true;
-            btn.innerText = "⏸ Pauza";
+            btn.innerText = "⏸ Pause";
             btn.style.backgroundColor = "#EAB308";
             
             timerId = setInterval(() => {
@@ -1127,7 +1974,7 @@
         if(currentIndex < exercises.length - 1) {
             currentIndex++;
         } else {
-            alert("🎉 Gratulacje! Cała rutyna wykonana!");
+            alert("🎉 Congratulations! Entire routine completed!");
             logManualSession();
             currentIndex = 0;
         }
@@ -1150,11 +1997,15 @@
         document.getElementById('input-name').value = ex.name;
         document.getElementById('input-time').value = ex.time;
         document.getElementById('input-tab').value = ex.tab || '';
+        document.getElementById('input-preferred-view').value = ex.preferredView || 'svg';
         document.getElementById('input-image').value = '';
 
-        document.getElementById('form-title').innerText = "✏️ Edytuj Ćwiczenie";
-        document.getElementById('form-subtitle').innerText = "Modyfikujesz wybrane ćwiczenie:";
-        document.getElementById('btn-save-exercise').innerText = "Zapisz Zmiany";
+        textToGrid(ex.tab || '');
+        previewSvgInForm();
+
+        document.getElementById('form-title').innerText = "✏️ Edit Exercise";
+        document.getElementById('form-subtitle').innerText = "Modifying selected exercise:";
+        document.getElementById('btn-save-exercise').innerText = "Save Changes";
         document.getElementById('btn-cancel-edit').style.display = "block";
 
         document.getElementById('form-title').scrollIntoView({ behavior: 'smooth' });
@@ -1165,11 +2016,15 @@
         document.getElementById('input-name').value = '';
         document.getElementById('input-time').value = '5';
         document.getElementById('input-tab').value = '';
+        document.getElementById('input-preferred-view').value = 'svg';
         document.getElementById('input-image').value = '';
+        document.getElementById('form-svg-preview').style.display = 'none';
 
-        document.getElementById('form-title').innerText = "➕ Dodaj Nowe Ćwiczenie";
-        document.getElementById('form-subtitle').innerText = "Dodaj ćwiczenie do wybranej rutyny:";
-        document.getElementById('btn-save-exercise').innerText = "Dodaj Ćwiczenie";
+        resetTabGrid(16);
+
+        document.getElementById('form-title').innerText = "➕ Add New Exercise";
+        document.getElementById('form-subtitle').innerText = "Add an exercise to the selected routine:";
+        document.getElementById('btn-save-exercise').innerText = "Add Exercise";
         document.getElementById('btn-cancel-edit').style.display = "none";
     }
 
@@ -1177,11 +2032,12 @@
         const name = document.getElementById('input-name').value.trim();
         const time = parseInt(document.getElementById('input-time').value);
         const tab = document.getElementById('input-tab').value;
+        const preferredView = document.getElementById('input-preferred-view').value || 'svg';
         const imageFile = document.getElementById('input-image').files[0];
         const editIndex = parseInt(document.getElementById('edit-exercise-index').value);
 
         if(!name) {
-            alert("Wpisz nazwę ćwiczenia!");
+            alert("Please enter an exercise name!");
             return;
         }
 
@@ -1192,13 +2048,13 @@
             if (imageFile) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    exercises[editIndex] = { name, time, tab, image: e.target.result };
+                    exercises[editIndex] = { name, time, tab, preferredView, image: e.target.result };
                     saveData();
                     cancelEdit();
                 };
                 reader.readAsDataURL(imageFile);
             } else {
-                exercises[editIndex] = { name, time, tab, image: existingImage };
+                exercises[editIndex] = { name, time, tab, preferredView, image: existingImage };
                 saveData();
                 cancelEdit();
             }
@@ -1206,13 +2062,13 @@
             if (imageFile) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    exercises.push({ name, time, tab, image: e.target.result });
+                    exercises.push({ name, time, tab, preferredView, image: e.target.result });
                     saveData();
                     cancelEdit();
                 };
                 reader.readAsDataURL(imageFile);
             } else {
-                exercises.push({ name, time, tab, image: "" });
+                exercises.push({ name, time, tab, preferredView, image: "" });
                 saveData();
                 cancelEdit();
             }
@@ -1237,7 +2093,7 @@
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fullData, null, 2));
         const downloadAnchor = document.createElement('a');
         downloadAnchor.setAttribute("href", dataStr);
-        downloadAnchor.setAttribute("download", "rutyny_i_dziennik_gitarowy.json");
+        downloadAnchor.setAttribute("download", "guitar_routines_and_log.json");
         document.body.appendChild(downloadAnchor);
         downloadAnchor.click();
         downloadAnchor.remove();
@@ -1255,24 +2111,25 @@
                     currentIndex = 0;
                     cancelEdit();
                     saveData();
-                    alert("✅ Zaimportowano pomyślnie!");
+                    alert("✅ Imported successfully!");
                 } else if(Array.isArray(importedData)) {
-                    routines = [{ name: "Zaimportowana Rutyna", exercises: importedData }];
+                    routines = [{ name: "Imported Routine", exercises: importedData }];
                     activeRoutineIndex = 0;
                     currentIndex = 0;
                     cancelEdit();
                     saveData();
-                    alert("✅ Zaimportowano!");
+                    alert("✅ Imported!");
                 } else {
-                    alert("❌ Nieprawidłowy format!");
+                    alert("❌ Invalid format!");
                 }
             } catch(err) {
-                alert("❌ Błąd odczytu!");
+                alert("❌ Read error!");
             }
         };
         fileReader.readAsText(event.target.files[0]);
     }
 
+    resetTabGrid(16);
     renderAll();
 </script>
 
