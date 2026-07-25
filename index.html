@@ -643,6 +643,170 @@
             padding-bottom: 2px !important;
         }
 
+        /* CLASSIC PRINTED SHEET MUSIC TAB RENDERER (HTML/CSS) */
+        .sheet-container {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            padding: 14px 12px;
+            margin-top: 10px;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            color: #000000;
+        }
+
+        .sheet-html-render {
+            background-color: #FFFFFF;
+            width: 100%;
+        }
+
+        .staff-system {
+            display: flex;
+            align-items: flex-start;
+            gap: 4px;
+            background-color: #FFFFFF;
+            padding: 4px 0;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .staff-labels {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-right: 6px;
+            border-right: 2px solid #000000;
+            flex-shrink: 0;
+            user-select: none;
+            width: 28px;
+        }
+
+        .staff-string-label {
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: monospace;
+            font-weight: 900;
+            font-size: 0.9rem;
+            color: #000000;
+        }
+
+        .staff-finger-label-top {
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .staff-finger-label-bottom {
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            color: var(--blue);
+            font-weight: bold;
+        }
+
+        .staff-steps-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 2px;
+            flex-grow: 1;
+            align-items: flex-start;
+        }
+
+        .staff-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 30px;
+            padding: 0;
+            position: relative;
+            background: transparent;
+        }
+
+        .finger-top-cell {
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .finger-bottom-cell {
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .finger-badge-top {
+            background-color: #10B981;
+            color: #FFFFFF;
+            font-size: 0.7rem;
+            font-weight: 900;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .finger-badge-bottom {
+            background-color: #3B82F6;
+            color: #FFFFFF;
+            font-size: 0.7rem;
+            font-weight: 900;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .string-cell {
+            height: 22px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .string-cell::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            height: 1.5px;
+            background-color: #000000;
+            z-index: 1;
+        }
+
+        .fret-badge {
+            position: relative;
+            z-index: 2;
+            background-color: #FFFFFF;
+            color: #000000;
+            font-weight: 900;
+            font-family: monospace;
+            font-size: 0.9rem;
+            padding: 0 3px;
+            border-radius: 2px;
+            box-shadow: 0 0 0 1.5px #FFFFFF;
+            min-width: 14px;
+            text-align: center;
+            line-height: 1.1;
+        }
+
         @media (max-width: 600px) {
             body { padding: 10px 6px; }
             .controls button { flex: 1 1 100%; }
@@ -1234,9 +1398,9 @@
         renderTabGridUI();
     }
 
-    // --- SVG TAB GENERATOR FUNCTION (ULTRA LEGIBLE) ---
-    function generateSvgFromText(rawText) {
-        if (!rawText) return '';
+    // --- RESPONSIVE HTML/CSS TAB STAFF RENDERER ---
+    function renderTabHtml(rawText) {
+        if (!rawText || !rawText.trim()) return '';
 
         let lines = rawText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
 
@@ -1262,11 +1426,9 @@
             }
         });
 
-        if (tabStrings.length < 6) {
-            return '';
-        }
-
+        if (tabStrings.length < 6) return '';
         tabStrings = tabStrings.slice(0, 6);
+
         let stringContents = tabStrings.map(s => s.content);
         let maxLen = Math.max(...stringContents.map(s => s.length), leftFingersContent.length, rightFingersContent.length);
 
@@ -1311,73 +1473,56 @@
 
         if (steps.length === 0) return '';
 
-        const paddingLeft = 55;
-        const paddingRight = 35;
-        const lineSpacing = 16;
-        const stepX = 30;
-        const blockSpacing = 85;
-        const systemHeight = 5 * lineSpacing;
-
-        const viewBoxWidth = 840;
-        const usableWidth = viewBoxWidth - paddingLeft - paddingRight;
-        const stepsPerBlock = Math.max(1, Math.floor(usableWidth / stepX));
-        const totalBlocks = Math.ceil(steps.length / stepsPerBlock);
-        const viewBoxHeight = 65 + totalBlocks * (systemHeight + blockSpacing);
-
-        let svgHtml = `<svg class="tab-svg-render" viewBox="0 0 ${viewBoxWidth} ${viewBoxHeight}" xmlns="http://www.w3.org/2000/svg" style="background:#FFFFFF; border-radius:10px; padding:10px; box-shadow:0 4px 15px rgba(0,0,0,0.15);">`;
-
-        for (let b = 0; b < totalBlocks; b++) {
-            let startX = paddingLeft;
-            let startY = 45 + b * (systemHeight + blockSpacing);
-            let blockSteps = steps.slice(b * stepsPerBlock, (b + 1) * stepsPerBlock);
-            let blockLen = blockSteps.length;
-            let endX = startX + blockLen * stepX;
-
-            for (let i = 0; i < 6; i++) {
-                let y = startY + i * lineSpacing;
-                svgHtml += `<line x1="${startX}" y1="${y}" x2="${endX}" y2="${y}" stroke="#64748B" stroke-width="1.5" />`;
-            }
-
-            svgHtml += `<line x1="${startX}" y1="${startY}" x2="${startX}" y2="${startY + systemHeight}" stroke="#0F172A" stroke-width="3" stroke-linecap="round" />`;
-            svgHtml += `<line x1="${endX}" y1="${startY}" x2="${endX}" y2="${startY + systemHeight}" stroke="#0F172A" stroke-width="3" stroke-linecap="round" />`;
-
-            for (let strIdx = 0; strIdx < 6; strIdx++) {
-                let posY = startY + strIdx * lineSpacing + 4.5;
-                let label = tabStrings[strIdx].label;
-                svgHtml += `<text x="${startX - 16}" y="${posY}" font-family="system-ui, -apple-system, sans-serif" font-weight="800" font-size="13" fill="#0F172A" text-anchor="middle">${label}</text>`;
-            }
-
-            for (let step = 0; step < blockLen; step++) {
-                let item = blockSteps[step];
-                let posX = startX + step * stepX + (stepX / 2);
-
-                if (item.L) {
-                    let topY = startY - 12;
-                    svgHtml += `<circle cx="${posX}" cy="${topY - 4}" r="9" fill="#10B981" />`;
-                    svgHtml += `<text x="${posX}" y="${topY - 0.5}" font-family="system-ui, sans-serif" font-weight="900" font-size="11" fill="#FFFFFF" text-anchor="middle">${item.L}</text>`;
-                }
-
-                for (let strIdx = 0; strIdx < 6; strIdx++) {
-                    let fret = item.strings[strIdx];
-                    if (fret && fret !== '-' && fret !== '') {
-                        let posY = startY + strIdx * lineSpacing;
-                        let rectW = fret.length > 1 ? 22 : 17;
-                        let rectH = 17;
-                        svgHtml += `<rect x="${posX - (rectW/2)}" y="${posY - (rectH/2)}" width="${rectW}" height="${rectH}" rx="4" fill="#FFFFFF" stroke="#0F172A" stroke-width="1.5" />`;
-                        svgHtml += `<text x="${posX}" y="${posY + 4}" font-family="ui-monospace, monospace" font-weight="900" font-size="13" fill="#0F172A" text-anchor="middle">${fret}</text>`;
-                    }
-                }
-
-                if (item.P) {
-                    let bottomY = startY + systemHeight + 20;
-                    svgHtml += `<circle cx="${posX}" cy="${bottomY - 4}" r="9" fill="#3B82F6" />`;
-                    svgHtml += `<text x="${posX}" y="${bottomY - 0.5}" font-family="system-ui, sans-serif" font-weight="900" font-size="11" fill="#FFFFFF" text-anchor="middle">${item.P}</text>`;
-                }
-            }
+        let html = '<div class="sheet-html-render"><div class="staff-system">';
+        
+        // String & Finger Labels
+        html += '<div class="staff-labels">';
+        html += '<div class="staff-finger-label-top">✋</div>';
+        for (let s = 0; s < 6; s++) {
+            html += `<div class="staff-string-label">${tabStrings[s].label}</div>`;
         }
+        html += '<div class="staff-finger-label-bottom">🖐️</div>';
+        html += '</div>';
 
-        svgHtml += `</svg>`;
-        return svgHtml;
+        // Steps container (Flexbox wrapping naturally on mobile screens!)
+        html += '<div class="staff-steps-container">';
+        steps.forEach((step) => {
+            html += '<div class="staff-step">';
+            
+            // Top finger (Left hand)
+            html += '<div class="finger-top-cell">';
+            if (step.L) {
+                html += `<div class="finger-badge-top">${step.L}</div>`;
+            }
+            html += '</div>';
+
+            // 6 Guitar strings
+            for (let s = 0; s < 6; s++) {
+                let fret = step.strings[s];
+                html += '<div class="string-cell">';
+                if (fret && fret !== '-' && fret !== '') {
+                    html += `<span class="fret-badge">${fret}</span>`;
+                }
+                html += '</div>';
+            }
+
+            // Bottom finger (Right hand)
+            html += '<div class="finger-bottom-cell">';
+            if (step.P) {
+                html += `<div class="finger-badge-bottom">${step.P}</div>`;
+            }
+            html += '</div>';
+
+            html += '</div>';
+        });
+        html += '</div>';
+
+        html += '</div></div>';
+        return html;
+    }
+
+    function generateSvgFromText(rawText) {
+        return renderTabHtml(rawText);
     }
 
     let formViewDisplayMode = 'editor';
