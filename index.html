@@ -979,9 +979,9 @@
 
             <!-- PLAYER VIEW SELECTOR -->
             <div id="player-view-selector" class="tab-mode-selector" style="margin-top: 10px; margin-bottom: 8px; display: none;">
-                <button type="button" id="player-view-svg-btn" class="tab-mode-btn active" onclick="setPlayerViewMode('svg')">🎨 Obraz z Generatora (SVG)</button>
-                <button type="button" id="player-view-text-btn" class="tab-mode-btn" onclick="setPlayerViewMode('text')">📝 Tabulatura Tekstowa</button>
-                <button type="button" id="player-view-both-btn" class="tab-mode-btn" onclick="setPlayerViewMode('both')">👁️ Oba Widoki</button>
+                <button type="button" id="player-view-svg-btn" class="tab-mode-btn active" onclick="setPlayerViewMode('svg')">🎨 Tab Generator View</button>
+                <button type="button" id="player-view-text-btn" class="tab-mode-btn" onclick="setPlayerViewMode('text')">📝 Raw Text View</button>
+                <button type="button" id="player-view-both-btn" class="tab-mode-btn" onclick="setPlayerViewMode('both')">👁️ Both Views</button>
             </div>
 
             <div id="tab-display" class="tab-box" style="display: none;"></div>
@@ -1032,50 +1032,50 @@
 
                 <!-- PREFERRED VIEW SELECTOR AT TOP OF GENERATOR -->
                 <div style="margin-top: 6px; margin-bottom: 12px; background: #14151F; padding: 10px; border-radius: 8px; border: 1px solid var(--border);">
-                    <label style="font-size: 0.8rem; color: var(--text-muted); font-weight: bold; display: block; margin-bottom: 4px;">👁️ Domyślny widok tego ćwiczenia w odtwarzaczu:</label>
+                    <label style="font-size: 0.8rem; color: var(--text-muted); font-weight: bold; display: block; margin-bottom: 4px;">👁️ Default exercise view in player:</label>
                     <select id="input-preferred-view">
-                        <option value="svg">🎨 Obraz z Generatora (Nuty SVG)</option>
-                        <option value="text">📝 Tabulatura tekstowa (ASCII)</option>
-                        <option value="both">👁️ Oba widoki (Nuty SVG + Tekst)</option>
+                        <option value="svg">🎨 Tab Generator View (Staff)</option>
+                        <option value="text">📝 Raw Text View (ASCII)</option>
+                        <option value="both">👁️ Both Views (Generator + Text)</option>
                     </select>
                 </div>
                 
                 <!-- VIEW SELECTOR IN FORM -->
                 <div class="tab-mode-selector" style="margin-bottom: 8px;">
-                    <button type="button" id="form-view-editor-btn" class="tab-mode-btn active" onclick="setFormViewDisplay('editor')">⚡ Generator / Edytor</button>
-                    <button type="button" id="form-view-preview-btn" class="tab-mode-btn" onclick="setFormViewDisplay('preview')">🎨 Obraz z Generatora (SVG)</button>
-                    <button type="button" id="form-view-both-btn" class="tab-mode-btn" onclick="setFormViewDisplay('both')">👁️ Oba Widoki</button>
+                    <button type="button" id="form-view-editor-btn" class="tab-mode-btn active" onclick="setFormViewDisplay('editor')">⚡ Generator / Editor</button>
+                    <button type="button" id="form-view-preview-btn" class="tab-mode-btn" onclick="setFormViewDisplay('preview')">🎨 Tab Generator View</button>
+                    <button type="button" id="form-view-both-btn" class="tab-mode-btn" onclick="setFormViewDisplay('both')">👁️ Both Views</button>
                 </div>
 
                 <div id="tab-builder-container" class="tab-builder-container">
                     <!-- MODE SELECTOR TABS -->
                     <div class="tab-mode-selector">
-                        <button type="button" id="tab-mode-grid-btn" class="tab-mode-btn active" onclick="switchTabMode('grid')">⚡ Visual Grid (Sześciolinia)</button>
-                        <button type="button" id="tab-mode-text-btn" class="tab-mode-btn" onclick="switchTabMode('text')">📝 Raw Text (Tekstowy)</button>
+                        <button type="button" id="tab-mode-grid-btn" class="tab-mode-btn active" onclick="switchTabMode('grid')">⚡ Visual Grid (6 Strings)</button>
+                        <button type="button" id="tab-mode-text-btn" class="tab-mode-btn" onclick="switchTabMode('text')">📝 Raw Text Editor</button>
                     </div>
 
                     <!-- VISUAL GRID CONTAINER -->
                     <div id="tab-grid-editor">
                         <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;">
-                            💡 <b>Wpisz progi (cyfry)</b> na strunach. Możesz <b>zmieniać litery strun</b> (strojenie). Na górze wpisz <b>palec naciskający</b> (lewa ręka), na dole <b>palec uderzający</b> (prawa ręka).
+                            💡 <b>Enter frets (numbers)</b> on strings. You can <b>edit string labels</b> (tuning). On top enter <b>fretting finger</b> (left hand), on bottom <b>plucking finger</b> (right hand).
                         </p>
 
                         <div class="grid-controls-bar">
-                            <span>Długość:</span>
+                            <span>Length:</span>
                             <button type="button" class="secondary" onclick="setGridColumns(8)">8</button>
                             <button type="button" class="secondary" onclick="setGridColumns(12)">12</button>
                             <button type="button" class="secondary" onclick="setGridColumns(16)">16</button>
                             <button type="button" class="secondary" onclick="setGridColumns(24)">24</button>
                             <button type="button" class="secondary" onclick="setGridColumns(32)">32</button>
-                            <button type="button" class="blue" onclick="addGridColumn()">+ Krok</button>
-                            <button type="button" class="secondary" onclick="removeGridColumn()">- Krok</button>
+                            <button type="button" class="blue" onclick="addGridColumn()">+ Step</button>
+                            <button type="button" class="secondary" onclick="removeGridColumn()">- Step</button>
                         </div>
                         <div class="grid-controls-bar" style="margin-top: 4px;">
-                            <span>Strojenie:</span>
+                            <span>Tuning:</span>
                             <button type="button" class="secondary" onclick="applyTuningPreset(['e','B','G','D','A','E'])">Standard E</button>
                             <button type="button" class="secondary" onclick="applyTuningPreset(['e','B','G','D','A','D'])">Drop D</button>
                             <button type="button" class="secondary" onclick="applyTuningPreset(['Eb','Bb','Gb','Db','Ab','Eb'])">Eb Standard</button>
-                            <button type="button" class="secondary" onclick="clearTabGrid()" style="margin-left: auto; color: #EF4444;">🧹 Wyczyść</button>
+                            <button type="button" class="secondary" onclick="clearTabGrid()" style="margin-left: auto; color: #EF4444;">🧹 Clear</button>
                         </div>
 
                         <div class="tab-grid-wrapper" style="margin-top: 8px;">
@@ -1087,12 +1087,12 @@
 
                     <!-- RAW TEXTAREA CONTAINER (HIDDEN IN GRID MODE) -->
                     <div id="tab-text-editor" style="display: none;">
-                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">Linie z <b>L|</b> (palce lewej ręki) oraz <b>P|</b> (palce prawej ręki):</p>
+                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">Lines with <b>L|</b> (left hand fingers) and <b>P|</b> (right hand fingers):</p>
                         <textarea id="input-tab" rows="8" placeholder="L|--1--2--3--4--------------------------&#10;e|--------------------------------------&#10;B|--------------------------------------&#10;G|--------------------------------------&#10;D|--------------------------------------&#10;A|--------------------------------------&#10;E|--0--1--2--3--------------------------&#10;P|--p--p--p--p--------------------------" oninput="onRawTextInput()"></textarea>
                     </div>
                 </div>
 
-                <button type="button" class="secondary" onclick="previewSvgInForm()" style="margin-top: 8px; width: 100%;">🎨 Odśwież Podgląd Nuty / SVG</button>
+                <button type="button" class="secondary" onclick="previewSvgInForm()" style="margin-top: 8px; width: 100%;">🎨 Refresh Tab Preview</button>
                 
                 <div id="form-svg-preview" class="sheet-container" style="display: none; margin-top: 10px;"></div>
             </div>
@@ -1103,10 +1103,10 @@
                 
                 <div id="image-form-preview-container" style="display: none; margin-top: 10px; flex-direction: column; gap: 8px; background: #FFFFFF; padding: 10px; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
                     <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                        <span style="font-size: 0.85rem; font-weight: bold; color: #000000;">🖼️ Podgląd Załączonego Pliku / Nuty:</span>
-                        <button type="button" class="secondary" onclick="removeExerciseImage()" style="color: #EF4444; padding: 4px 10px; font-size: 0.8rem; border-color: rgba(239, 68, 68, 0.4);">🗑️ Usuń zdjęcie</button>
+                        <span style="font-size: 0.85rem; font-weight: bold; color: #000000;">🖼️ Attached Sheet Music / Image Preview:</span>
+                        <button type="button" class="secondary" onclick="removeExerciseImage()" style="color: #EF4444; padding: 4px 10px; font-size: 0.8rem; border-color: rgba(239, 68, 68, 0.4);">🗑️ Remove Image</button>
                     </div>
-                    <img id="image-form-thumbnail" src="" alt="Załączone nuty" style="max-height: 70vh; width: 100%; object-fit: contain; border-radius: 6px; background-color: #FFFFFF;">
+                    <img id="image-form-thumbnail" src="" alt="Attached sheet music" style="max-height: 70vh; width: 100%; object-fit: contain; border-radius: 6px; background-color: #FFFFFF;">
                 </div>
             </div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -1169,14 +1169,14 @@
         html += '</tr></thead><tbody>';
 
         const rowConfigs = [
-            { label: '✋ Lewa (nacisnąć)', type: 'L', class: 'left-hand', inputClass: 'left-hand-input' },
+            { label: '✋ Left Hand (Fret)', type: 'L', class: 'left-hand', inputClass: 'left-hand-input' },
             { label: tabGridData.stringNames[0], type: 'str', strIdx: 0, class: 'string-name', inputClass: '' },
             { label: tabGridData.stringNames[1], type: 'str', strIdx: 1, class: 'string-name', inputClass: '' },
             { label: tabGridData.stringNames[2], type: 'str', strIdx: 2, class: 'string-name', inputClass: '' },
             { label: tabGridData.stringNames[3], type: 'str', strIdx: 3, class: 'string-name', inputClass: '' },
             { label: tabGridData.stringNames[4], type: 'str', strIdx: 4, class: 'string-name', inputClass: '' },
             { label: tabGridData.stringNames[5], type: 'str', strIdx: 5, class: 'string-name', inputClass: '' },
-            { label: '🖐️ Prawa (uderzyć)', type: 'P', class: 'right-hand', inputClass: 'right-hand-input' }
+            { label: '🖐️ Right Hand (Pluck)', type: 'P', class: 'right-hand', inputClass: 'right-hand-input' }
         ];
 
         rowConfigs.forEach((r, rowIdx) => {
