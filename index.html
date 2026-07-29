@@ -308,6 +308,209 @@
             background-color: #059669;
         }
 
+        /* EXPANDED CALENDAR & ANALYTICS DASHBOARD STYLES */
+        .cal-stat-card {
+            background: #14151F;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px 6px;
+            text-align: center;
+        }
+
+        .cal-stat-card span {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1.1;
+        }
+
+        .cal-stat-card p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin: 2px 0 0 0;
+            white-space: nowrap;
+        }
+
+        /* 365-DAY ANNUAL HEATMAP STYLES */
+        .annual-heatmap-wrapper {
+            overflow-x: auto;
+            flex-grow: 1;
+            padding-bottom: 6px;
+            scroll-behavior: smooth;
+        }
+
+        .annual-heatmap-grid {
+            display: grid;
+            grid-template-rows: repeat(7, 10px);
+            grid-auto-flow: column;
+            grid-auto-columns: 10px;
+            gap: 3px;
+            width: max-content;
+        }
+
+        .year-day-tile {
+            width: 10px;
+            height: 10px;
+            border-radius: 2px;
+            background-color: #1A1B28;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: transform 0.1s ease, border-color 0.1s ease;
+        }
+
+        .year-day-tile:hover {
+            transform: scale(1.5);
+            z-index: 10;
+            border-color: #FFFFFF !important;
+        }
+
+        .year-day-tile.today-tile {
+            border-color: var(--accent) !important;
+        }
+
+        .year-day-tile.lvl-1 {
+            background-color: #054F38;
+            border-color: #10B981;
+        }
+
+        .year-day-tile.lvl-2 {
+            background-color: #10B981;
+            border-color: #059669;
+        }
+
+        .year-day-tile.lvl-3 {
+            background: linear-gradient(135deg, #10B981, #F59E0B);
+            border-color: #F59E0B;
+            box-shadow: 0 0 4px rgba(245, 158, 11, 0.6);
+        }
+
+        /* WEEKLY LINE CHART STYLES */
+        .line-chart-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .line-chart-grid-line {
+            stroke: rgba(255, 255, 255, 0.08);
+            stroke-dasharray: 3 3;
+        }
+
+        .line-chart-path {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.5));
+        }
+
+        .line-chart-area {
+            fill: url(#lineChartGradient);
+            opacity: 0.45;
+        }
+
+        .line-chart-point {
+            fill: #14151F;
+            stroke: var(--accent);
+            stroke-width: 2.5;
+            cursor: pointer;
+            transition: r 0.2s ease, fill 0.2s ease;
+        }
+
+        .line-chart-point:hover {
+            r: 6.5;
+            fill: var(--accent);
+            filter: drop-shadow(0 0 8px var(--accent));
+        }
+
+        .line-chart-point-target-met {
+            stroke: #10B981 !important;
+            fill: #10B981 !important;
+        }
+
+        /* MONTHLY TARGET VS ACTUAL BAR CHART STYLES */
+        .month-barchart-container {
+            background: #14151F;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        .chart-grid {
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            height: 130px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .chart-col {
+            flex: 1;
+            min-width: 12px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .chart-col:hover .chart-bar-fill {
+            filter: brightness(1.25);
+        }
+
+        .chart-col.selected-bar .chart-bar-fill {
+            outline: 2px solid var(--blue);
+            box-shadow: 0 0 8px var(--blue);
+        }
+
+        .chart-bar-bg {
+            width: 100%;
+            height: 100%;
+            background: #1A1B28;
+            border-radius: 4px 4px 0 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            position: relative;
+            overflow: hidden;
+            border: 1px dashed rgba(255, 255, 255, 0.08);
+        }
+
+        .chart-bar-fill {
+            width: 100%;
+            border-radius: 3px 3px 0 0;
+            transition: height 0.3s ease;
+        }
+
+        .chart-bar-fill.target-met {
+            background: linear-gradient(to top, #059669, #10B981);
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+        }
+
+        .chart-bar-fill.target-exceeded {
+            background: linear-gradient(to top, #10B981, #F59E0B);
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.6);
+        }
+
+        .chart-bar-fill.target-partial {
+            background: linear-gradient(to top, #D97706, #FBBF24);
+        }
+
+        .chart-day-label {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            font-weight: bold;
+        }
+
         /* Calendar Grid */
         .calendar-grid {
             display: grid;
@@ -335,29 +538,72 @@
             justify-content: center;
             font-size: 0.75rem;
             position: relative;
+            cursor: pointer;
+            transition: transform 0.15s ease, border-color 0.15s ease;
+        }
+
+        .calendar-day:hover:not(.empty) {
+            transform: scale(1.05);
+            z-index: 5;
+            border-color: var(--accent);
         }
 
         .calendar-day.empty {
             background-color: transparent;
             border: none;
+            cursor: default;
         }
 
         .calendar-day.today {
             border-color: var(--accent);
             font-weight: bold;
+            box-shadow: 0 0 0 1.5px var(--accent);
         }
 
-        .calendar-day.practiced {
-            background-color: rgba(16, 185, 129, 0.2);
-            border-color: var(--green);
-            color: var(--green);
+        .calendar-day.selected-day {
+            border-color: var(--blue) !important;
+            box-shadow: 0 0 0 2px var(--blue) !important;
+            z-index: 6;
+        }
+
+        .calendar-day.level-1 {
+            background-color: rgba(16, 185, 129, 0.25);
+            border-color: #10B981;
+            color: #A7F3D0;
             font-weight: bold;
         }
 
-        .calendar-day.practiced::after {
-            content: "🎸";
-            font-size: 0.6rem;
+        .calendar-day.level-2 {
+            background-color: rgba(16, 185, 129, 0.5);
+            border-color: #059669;
+            color: #FFFFFF;
+            font-weight: 900;
+        }
+
+        .calendar-day.level-3 {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.6), rgba(245, 158, 11, 0.5));
+            border-color: #F59E0B;
+            color: #FFFFFF;
+            font-weight: 900;
+            box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+        }
+
+        .cal-day-badge {
+            font-size: 0.55rem;
             margin-top: 1px;
+            line-height: 1;
+            opacity: 0.95;
+        }
+
+        .cal-note-dot {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            width: 5px;
+            height: 5px;
+            background: #3B82F6;
+            border-radius: 50%;
+            box-shadow: 0 0 4px #3B82F6;
         }
 
         /* Log Entry */
@@ -564,23 +810,33 @@
         .tab-grid-label {
             font-weight: bold;
             font-size: 0.8rem;
-            padding: 4px 8px !important;
+            padding: 4px 6px !important;
             text-align: right !important;
-            white-space: nowrap;
             user-select: none;
         }
 
         .tab-grid-label.left-hand {
             color: var(--green);
+            font-size: 0.7rem;
+            line-height: 1.15;
+            white-space: normal !important;
+            max-width: 75px;
+            padding: 2px 4px !important;
         }
 
         .tab-grid-label.right-hand {
             color: var(--blue);
+            font-size: 0.7rem;
+            line-height: 1.15;
+            white-space: normal !important;
+            max-width: 75px;
+            padding: 2px 4px !important;
         }
 
         .tab-grid-label.string-name {
             color: var(--accent);
             font-family: monospace;
+            white-space: nowrap;
         }
 
         .tab-string-name-input {
@@ -633,12 +889,235 @@
             background-color: rgba(59, 130, 246, 0.1);
         }
 
-        .tab-grid-input.left-hand-input:focus {
-            outline-color: var(--green);
-        }
-
         .tab-grid-input.right-hand-input:focus {
             outline-color: var(--blue);
+        }
+
+        /* ACCURATE GUITARTABCREATOR.COM FRETBOARD STYLES */
+        .fretboard-container {
+            background: #23130A;
+            background-image: repeating-linear-gradient(180deg, #28150B, #28150B 3px, #201007 3px, #201007 6px);
+            border: 2px solid #180B04;
+            border-radius: 8px;
+            padding: 6px 4px;
+            margin-top: 8px;
+            position: relative;
+            box-shadow: inset 0 0 12px rgba(0,0,0,0.85);
+            user-select: none;
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        .gtc_table_lg {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+            background: #28150B;
+        }
+
+        .gtc_table_lg tr td:first-child,
+        .gtc_table_lg tr th:first-child {
+            width: 20px !important;
+            max-width: 20px !important;
+        }
+
+        .gtc_table_lg .numnode {
+            font-size: 0.8rem;
+            font-weight: 900;
+            color: #FCD34D; /* Warm Amber Gold */
+            background: #1C0E07; /* Dark Wood Header */
+            padding: 3px 0;
+            text-align: center;
+            font-family: sans-serif;
+            border: 1px solid #381B0E;
+        }
+
+        .gtc_table_lg .stringrow {
+            height: 24px;
+        }
+
+        .gtc_table_lg .tdnut {
+            width: 18px;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: 900;
+            font-family: sans-serif;
+            background: #2E180E;
+            color: #E5E7EB;
+            border: 1px solid #4B2815;
+            padding: 0;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+
+        .gtc_table_lg .tdnut.open-active {
+            background: #10B981 !important;
+            border-color: #059669 !important;
+        }
+
+        .gtc_table_lg .tdnut.open-active .stringnote {
+            color: #FFFFFF !important;
+        }
+
+        .gtc_table_lg .stringnote {
+            font-size: 0.65rem;
+            font-weight: 900;
+            color: #E5E7EB;
+        }
+
+        .gtc_table_lg .tdfret {
+            height: 24px;
+            position: relative;
+            vertical-align: middle;
+            text-align: center;
+            border-right: 2.5px solid #CBD5E1; /* Silver fret wire */
+            border-top: 1px solid #361C0F;
+            border-bottom: 1px solid #361C0F;
+            padding: 0;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .gtc_table_lg .tdfret:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .gtc_table_lg .fretdiv {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gtc_table_lg .notediv {
+            position: relative;
+            z-index: 5;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #10B981;
+            color: #FFFFFF;
+            font-weight: bold;
+            font-size: 0.75rem;
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.9);
+            margin: auto;
+        }
+
+        /* Marker for frets used in OTHER steps of the exercise */
+        .gtc_table_lg .notediv-used {
+            position: relative;
+            z-index: 4;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid #10B981;
+            color: #A7F3D0;
+            font-weight: bold;
+            font-size: 0.7rem;
+            box-shadow: 0 0 6px rgba(16, 185, 129, 0.4);
+            margin: auto;
+        }
+
+        .gtc_table_lg .tdnut.open-used {
+            border: 1.5px solid #10B981 !important;
+            background: rgba(16, 185, 129, 0.2) !important;
+        }
+
+        .gtc_table_lg .tdnut.open-used .stringnote {
+            color: #10B981 !important;
+        }
+
+        .fret-ctrl-btn {
+            padding: 3px 8px !important;
+            font-size: 0.75rem !important;
+            line-height: 1.2 !important;
+        }
+
+        .fret-step-num {
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 0.78rem;
+            padding: 0 4px;
+            white-space: nowrap;
+        }
+
+        #fretboard-chord-toggle-btn.active {
+            background-color: #10B981 !important;
+            color: #FFFFFF !important;
+            border-color: #059669 !important;
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
+        }
+
+        /* String Gauges */
+        .fretboard-string-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .string-line-0 { height: 1.5px; background: #D1D5DB; }
+        .string-line-1 { height: 2px; background: #E5E7EB; }
+        .string-line-2 { height: 2.5px; background: #FCD34D; }
+        .string-line-3 { height: 3px; background: #F59E0B; }
+        .string-line-4 { height: 3.5px; background: #D97706; }
+        .string-line-5 { height: 4px; background: #B45309; }
+
+        /* Amber Gold Inlay Dot placed exactly BETWEEN 3rd and 4th string (G & D) */
+        .inlay-dot-pearl {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, #FDE68A 30%, #F59E0B 80%, #B45309 100%);
+            border-radius: 50%;
+            top: 100%; /* Positioned directly on boundary between string 3 and 4! */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 2;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .inlay-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .inlay-dot-double {
+            display: flex;
+            gap: 12px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        .inlay-dot-double div {
+            width: 7px;
+            height: 7px;
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
         }
 
         .step-header {
@@ -898,11 +1377,243 @@
                 border-radius: 4px !important;
             }
 
+
+
+            /* 100% FULLY VISIBLE FIXED FRETBOARD ON MOBILE PHONES (NO SCROLL) */
+            .fretboard-container {
+                width: calc(100% + 24px) !important;
+                margin-left: -12px !important;
+                margin-right: -12px !important;
+                border-left: none !important;
+                border-right: none !important;
+                border-radius: 0 !important;
+                padding: 4px 0 !important;
+                overflow: hidden !important;
+            }
+
+            .gtc_table_lg {
+                width: 100% !important;
+                min-width: 0 !important;
+                table-layout: fixed !important;
+            }
+
+            .gtc_table_lg .numnode {
+                font-size: 0.65rem !important;
+                padding: 2px 0 !important;
+            }
+
+            .gtc_table_lg .stringrow, .gtc_table_lg .tdfret {
+                height: 22px !important;
+            }
+
+            .gtc_table_lg .tdnut {
+                width: 14px !important;
+                padding: 0 !important;
+            }
+
+            .gtc_table_lg .stringnote {
+                font-size: 0.55rem !important;
+            }
+
+            .gtc_table_lg .notediv {
+                width: 15px !important;
+                height: 15px !important;
+                font-size: 0.58rem !important;
+            }
+
+            .inlay-dot-pearl {
+                width: 8px !important;
+                height: 8px !important;
+            }
+
+            .fret-ctrl-btn {
+                padding: 2px 5px !important;
+                font-size: 0.68rem !important;
+            }
+
+            .fret-step-num {
+                font-size: 0.7rem !important;
+                padding: 0 2px !important;
+            }
+
             #image-form-preview-container {
                 padding: 6px !important;
                 margin-left: -6px;
                 margin-right: -6px;
                 width: calc(100% + 12px);
+            }
+
+            /* MOBILE OPTIMIZATIONS FOR PROGRESS CALENDAR & WORKOUT LOG */
+            .cal-stat-card {
+                padding: 8px 6px !important;
+            }
+
+            /* REDUCE SIDE MARGINS ON SMARTPHONES */
+            body {
+                padding: 8px 4px !important;
+            }
+
+            .container {
+                gap: 10px !important;
+            }
+
+            .card {
+                padding: 10px 8px !important;
+                border-radius: 10px !important;
+            }
+
+            .cal-stat-card {
+                padding: 6px 4px !important;
+            }
+
+            .cal-stat-card .stat-val {
+                font-size: 1.05rem !important;
+            }
+
+            .cal-stat-card .stat-label {
+                font-size: 0.65rem !important;
+            }
+
+            .annual-heatmap-wrapper {
+                padding-bottom: 4px;
+            }
+
+            .heatmap-month-label {
+                font-size: 0.55rem !important;
+            }
+
+            .heatmap-day-label {
+                font-size: 0.5rem !important;
+                width: 18px !important;
+            }
+
+            .month-barchart-container {
+                padding: 8px 4px !important;
+            }
+
+            /* MONTH NAVIGATION BAR MOBILE OPTIMIZATION */
+            .calendar-header-bar {
+                padding: 4px 6px !important;
+                gap: 4px !important;
+                justify-content: space-between !important;
+            }
+
+            .cal-nav-btn {
+                padding: 2px 5px !important;
+                font-size: 0.65rem !important;
+                border-radius: 4px !important;
+                white-space: nowrap !important;
+            }
+
+            .cal-title-group {
+                gap: 4px !important;
+            }
+
+            #calendar-title {
+                font-size: 0.8rem !important;
+                white-space: nowrap !important;
+            }
+
+            .cal-today-btn {
+                padding: 2px 4px !important;
+                font-size: 0.6rem !important;
+                border-radius: 4px !important;
+            }
+
+            .chart-grid {
+                gap: 1px !important;
+            }
+
+            .chart-col {
+                min-width: 0 !important;
+            }
+
+            .chart-day-label {
+                font-size: 0.45rem !important;
+            }
+
+            .y-scale-col {
+                font-size: 0.55rem !important;
+                width: 26px !important;
+            }
+
+            .line-chart-svg text {
+                font-size: 8px !important;
+            }
+
+            /* WORKOUT HISTORY LOG MOBILE REDUCTIONS */
+            .history-log-header-row {
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                gap: 4px !important;
+                margin-top: 12px !important;
+            }
+
+            .history-log-header-row h3 {
+                font-size: 0.76rem !important;
+            }
+
+            .history-log-controls {
+                width: auto !important;
+                gap: 3px !important;
+            }
+
+            .history-log-controls .fret-ctrl-btn {
+                padding: 2px 5px !important;
+                font-size: 0.62rem !important;
+                border-radius: 4px !important;
+            }
+
+            #log-history-date-display {
+                font-size: 0.68rem !important;
+                padding: 0 2px !important;
+            }
+
+            .log-list {
+                gap: 5px !important;
+                margin-top: 6px !important;
+            }
+
+            .log-item {
+                padding: 5px 7px !important;
+                font-size: 0.7rem !important;
+                border-radius: 5px !important;
+            }
+
+            .log-item span {
+                font-size: 0.7rem !important;
+                line-height: 1.2 !important;
+            }
+
+            .log-item strong {
+                font-size: 0.65rem !important;
+                margin-left: 3px !important;
+            }
+
+            .log-item .btn-del {
+                font-size: 0.62rem !important;
+                padding: 2px 5px !important;
+            }
+
+            #tempo-progress-section-body {
+                padding: 10px 8px !important;
+            }
+
+            #tempo-chart-badges > div {
+                font-size: 0.7rem !important;
+                padding: 4px 6px !important;
+            }
+
+            #manual-log-form-container input,
+            #manual-log-form-container select {
+                font-size: 0.75rem !important;
+                padding: 6px 8px !important;
+            }
+
+            #manual-log-form-container button {
+                font-size: 0.75rem !important;
+                padding: 4px 8px !important;
             }
         }
     </style>
@@ -915,21 +1626,7 @@
         <p>Your routines, timer, metronome, tabs, and progress log.</p>
     </header>
 
-    <!-- STATISTICS -->
-    <div class="stats-grid">
-        <div class="stat-card">
-            <h3 id="stat-streak">0 days</h3>
-            <p>🔥 Streak</p>
-        </div>
-        <div class="stat-card">
-            <h3 id="stat-total-time">0 min</h3>
-            <p>⏱️ Total</p>
-        </div>
-        <div class="stat-card">
-            <h3 id="stat-sessions">0</h3>
-            <p>✅ Routines</p>
-        </div>
-    </div>
+
 
     <!-- ROUTINE SELECTION AND DELETION -->
     <div class="card">
@@ -974,6 +1671,13 @@
                 <div class="metronome-actions">
                     <button id="metro-btn-start" class="secondary" onclick="toggleMetronome()" style="flex: 2;">▶ Turn Metronome On</button>
                     <button class="secondary" onclick="tapTempo()" style="flex: 1;">👆 Tap</button>
+                </div>
+
+                <div style="margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 0.8rem; color: var(--text-main);">
+                    <input type="checkbox" id="metro-record-bpm-checkbox" checked style="width: 16px; height: 16px; cursor: pointer; accent-color: var(--accent);">
+                    <label for="metro-record-bpm-checkbox" style="cursor: pointer; font-weight: bold; margin-bottom: 0;">
+                        ⚡ Save practice speed (BPM) in workout logs
+                    </label>
                 </div>
             </div>
 
@@ -1040,24 +1744,66 @@
                     </select>
                 </div>
                 
-                <!-- VIEW SELECTOR IN FORM -->
-                <div class="tab-mode-selector" style="margin-bottom: 8px;">
-                    <button type="button" id="form-view-editor-btn" class="tab-mode-btn active" onclick="setFormViewDisplay('editor')">⚡ Generator / Editor</button>
-                    <button type="button" id="form-view-preview-btn" class="tab-mode-btn" onclick="setFormViewDisplay('preview')">🎨 Tab Generator View</button>
-                    <button type="button" id="form-view-both-btn" class="tab-mode-btn" onclick="setFormViewDisplay('both')">👁️ Both Views</button>
-                </div>
-
                 <div id="tab-builder-container" class="tab-builder-container">
                     <!-- MODE SELECTOR TABS -->
                     <div class="tab-mode-selector">
-                        <button type="button" id="tab-mode-grid-btn" class="tab-mode-btn active" onclick="switchTabMode('grid')">⚡ Visual Grid (6 Strings)</button>
+                        <button type="button" id="tab-mode-fretboard-btn" class="tab-mode-btn active" onclick="switchTabMode('fretboard')">🎸 Neck</button>
+                        <button type="button" id="tab-mode-grid-btn" class="tab-mode-btn" onclick="switchTabMode('grid')">⚡ Visual Grid</button>
                         <button type="button" id="tab-mode-text-btn" class="tab-mode-btn" onclick="switchTabMode('text')">📝 Raw Text Editor</button>
                     </div>
 
-                    <!-- VISUAL GRID CONTAINER -->
-                    <div id="tab-grid-editor">
+                    <!-- INTERACTIVE FRETBOARD CONTAINER -->
+                    <div id="tab-fretboard-editor">
                         <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;">
-                            💡 <b>Enter frets (numbers)</b> on strings. You can <b>edit string labels</b> (tuning). On top enter <b>fretting finger</b> (left hand), on bottom <b>plucking finger</b> (right hand).
+                            🎸 <b>Touch a fret (0-10)</b> or string start (open string) to place notes. Clicking a fret automatically advances to the next step!
+                        </p>
+
+                        <!-- FRETBOARD CONTROLS BAR -->
+                        <div style="display: flex; gap: 6px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 8px; background: #14151F; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">
+                                <button type="button" class="secondary fret-ctrl-btn" onclick="prevFretboardStep()">◀ Prev</button>
+                                <span id="fretboard-step-indicator" class="fret-step-num">Step 1/16</span>
+                                <button type="button" class="secondary fret-ctrl-btn" onclick="nextFretboardStep()">Next ▶</button>
+                                <button type="button" class="blue fret-ctrl-btn" onclick="addGridColumn(); activeFretboardStep = tabGridData.cols - 1; renderFretboardUI();">+ Step</button>
+                                <button type="button" id="fretboard-chord-toggle-btn" class="secondary fret-ctrl-btn" onclick="toggleFretboardChordMode()" title="Toggle Chord mode: tap multiple notes in one step without advancing">🎼 Chord</button>
+                                <button type="button" class="secondary fret-ctrl-btn" onclick="clearFretboardStartOver()" style="color: #EF4444; border-color: rgba(239, 68, 68, 0.4);">🧹 Clear</button>
+                            </div>
+
+                            <!-- Left Hand Finger selector -->
+                            <div style="display: flex; align-items: center; gap: 3px;">
+                                <span style="font-size: 0.75rem; color: var(--green); font-weight: bold;">✋ Left:</span>
+                                <button type="button" class="secondary finger-opt-btn" onclick="setFretboardFinger('L','1')" style="padding: 3px 6px; font-size: 0.75rem;">1</button>
+                                <button type="button" class="secondary finger-opt-btn" onclick="setFretboardFinger('L','2')" style="padding: 3px 6px; font-size: 0.75rem;">2</button>
+                                <button type="button" class="secondary finger-opt-btn" onclick="setFretboardFinger('L','3')" style="padding: 3px 6px; font-size: 0.75rem;">3</button>
+                                <button type="button" class="secondary finger-opt-btn" onclick="setFretboardFinger('L','4')" style="padding: 3px 6px; font-size: 0.75rem;">4</button>
+                                <button type="button" class="secondary finger-opt-btn" onclick="setFretboardFinger('L','T')" style="padding: 3px 6px; font-size: 0.75rem;">T</button>
+                                <button type="button" class="secondary" onclick="setFretboardFinger('L','')" style="color:#EF4444; padding: 3px 6px; font-size: 0.75rem;">✕</button>
+                            </div>
+
+                            <!-- Right Hand Finger selector -->
+                            <div style="display: flex; align-items: center; gap: 3px;">
+                                <span style="font-size: 0.75rem; color: var(--blue); font-weight: bold;">🖐️ Right:</span>
+                                <button type="button" class="secondary finger-opt-btn" onclick="setFretboardFinger('P','p')" style="padding: 3px 6px; font-size: 0.75rem;">p</button>
+                                <button type="button" class="secondary finger-opt-btn" onclick="setFretboardFinger('P','i')" style="padding: 3px 6px; font-size: 0.75rem;">i</button>
+                                <button type="button" class="secondary finger-opt-btn" onclick="setFretboardFinger('P','m')" style="padding: 3px 6px; font-size: 0.75rem;">m</button>
+                                <button type="button" class="secondary finger-opt-btn" onclick="setFretboardFinger('P','a')" style="padding: 3px 6px; font-size: 0.75rem;">a</button>
+                                <button type="button" class="secondary finger-opt-btn" onclick="setFretboardFinger('P','c')" style="padding: 3px 6px; font-size: 0.75rem;">c</button>
+                                <button type="button" class="secondary" onclick="setFretboardFinger('P','')" style="color:#EF4444; padding: 3px 6px; font-size: 0.75rem;">✕</button>
+                            </div>
+                        </div>
+
+                        <!-- FRETBOARD GRAPHIC TABLE -->
+                        <div class="fretboard-container">
+                            <table class="fretboard-table" id="interactive-fretboard-table">
+                                <!-- Dynamic 12-Fret Fretboard rendered by JS -->
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- VISUAL GRID CONTAINER -->
+                    <div id="tab-grid-editor" style="display: none;">
+                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;">
+                            💡 <b>Enter frets (numbers)</b> on strings. On top enter <b>fretting finger</b> (left hand), on bottom <b>plucking finger</b> (right hand).
                         </p>
 
                         <div class="grid-controls-bar">
@@ -1069,25 +1815,28 @@
                             <button type="button" class="secondary" onclick="setGridColumns(32)">32</button>
                             <button type="button" class="blue" onclick="addGridColumn()">+ Step</button>
                             <button type="button" class="secondary" onclick="removeGridColumn()">- Step</button>
-                        </div>
-                        <div class="grid-controls-bar" style="margin-top: 4px;">
-                            <span>Tuning:</span>
-                            <button type="button" class="secondary" onclick="applyTuningPreset(['e','B','G','D','A','E'])">Standard E</button>
-                            <button type="button" class="secondary" onclick="applyTuningPreset(['e','B','G','D','A','D'])">Drop D</button>
-                            <button type="button" class="secondary" onclick="applyTuningPreset(['Eb','Bb','Gb','Db','Ab','Eb'])">Eb Standard</button>
                             <button type="button" class="secondary" onclick="clearTabGrid()" style="margin-left: auto; color: #EF4444;">🧹 Clear</button>
                         </div>
 
-                        <div class="tab-grid-wrapper" style="margin-top: 8px;">
+                        <div class="tab-grid-wrapper" style="margin-top: 8px;" onscroll="syncGridScrollSlider()">
                             <table class="tab-grid-table" id="visual-tab-table">
                                 <!-- Dynamic visual grid table rendered by JS -->
                             </table>
+                        </div>
+
+                        <!-- HORIZONTAL SCROLL SLIDER FOR GRID -->
+                        <div id="grid-scroll-bar" style="display: none; align-items: center; gap: 8px; margin-top: 8px; background: #14151F; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border);">
+                            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: bold; white-space: nowrap;">↔ Scroll Grid:</span>
+                            <input type="range" id="grid-scroll-slider" min="0" max="100" value="0" style="flex-grow: 1; margin: 0;" oninput="onGridScrollSliderInput(this.value)">
                         </div>
                     </div>
 
                     <!-- RAW TEXTAREA CONTAINER (HIDDEN IN GRID MODE) -->
                     <div id="tab-text-editor" style="display: none;">
-                        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 4px;">Lines with <b>L|</b> (left hand fingers) and <b>P|</b> (right hand fingers):</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0;">Lines with <b>L|</b> (left hand fingers) and <b>P|</b> (right hand fingers):</p>
+                            <button type="button" class="secondary" onclick="clearRawText()" style="color: #EF4444; padding: 3px 8px; font-size: 0.75rem;">🧹 Clear Text</button>
+                        </div>
                         <textarea id="input-tab" rows="8" placeholder="L|--1--2--3--4--------------------------&#10;e|--------------------------------------&#10;B|--------------------------------------&#10;G|--------------------------------------&#10;D|--------------------------------------&#10;A|--------------------------------------&#10;E|--0--1--2--3--------------------------&#10;P|--p--p--p--p--------------------------" oninput="onRawTextInput()"></textarea>
                     </div>
                 </div>
@@ -1129,14 +1878,251 @@
         </div>
     </div>
 
-    <!-- CALENDAR -->
-    <div class="card">
-        <h2>📅 Progress Calendar</h2>
-        <div id="calendar-title" style="font-weight: bold; margin-bottom: 8px; color: var(--accent); font-size: 0.95rem;"></div>
-        <div id="calendar" class="calendar-grid"></div>
+    <!-- EXPANDED PROGRESS CALENDAR & ANALYTICS DASHBOARD -->
+    <div class="card" id="progress-calendar-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+            <h2>📅 Progress Calendar & Workout Log</h2>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                <button type="button" class="secondary" onclick="openManualLogModal()" style="font-size: 0.75rem; padding: 4px 8px;">➕ Record Workout</button>
+            </div>
+        </div>
 
-        <h3 style="margin-top: 15px; font-size: 0.9rem; color: var(--text-main);">📝 Recent Workouts:</h3>
-        <div id="log-list" class="log-list"></div>
+        <!-- TIME-PERIOD ANALYTICS SUMMARY CARDS (Weekly, Monthly, Yearly, Total) -->
+        <div class="calendar-stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; margin-bottom: 14px;">
+            <div class="cal-stat-card">
+                <span id="cal-stat-weekly">0m</span>
+                <p>📊 Weekly</p>
+            </div>
+            <div class="cal-stat-card">
+                <span id="cal-stat-monthly">0m</span>
+                <p>🗓️ Monthly</p>
+            </div>
+            <div class="cal-stat-card">
+                <span id="cal-stat-yearly">0m</span>
+                <p>🎆 Yearly</p>
+            </div>
+            <div class="cal-stat-card">
+                <span id="cal-stat-total">0m</span>
+                <p>🏆 Total All-Time</p>
+            </div>
+        </div>
+
+        <!-- 365-DAY ANNUAL ACTIVITY HEATMAP -->
+        <div style="margin-bottom: 16px; background: #14151F; padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+                <div style="font-weight: bold; font-size: 0.9rem; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+                    <span>🗺️ 365-Day Annual Practice Heatmap</span>
+                    <span id="annual-year-title" style="color: var(--accent); font-size: 0.85rem;">(2026)</span>
+                </div>
+                <div style="display: flex; gap: 4px; align-items: center;">
+                    <button type="button" class="secondary" onclick="changeAnnualYear(-1)" style="padding: 2px 6px; font-size: 0.75rem;">◀ Prev Year</button>
+                    <button type="button" class="secondary" onclick="jumpAnnualYearToday()" style="padding: 2px 6px; font-size: 0.75rem;">Today</button>
+                    <button type="button" class="secondary" onclick="changeAnnualYear(1)" style="padding: 2px 6px; font-size: 0.75rem;">Next Year ▶</button>
+                </div>
+            </div>
+
+            <!-- HEATMAP WITH LEFT DAY LABELS AND TOP MONTH HEADERS -->
+            <div style="display: flex; gap: 6px; align-items: flex-start;">
+                <!-- Left Day Labels -->
+                <div style="display: flex; flex-direction: column; gap: 3px; margin-top: 18px; font-size: 0.62rem; color: var(--text-muted); text-align: right; width: 24px; flex-shrink: 0; user-select: none;">
+                    <span style="height: 10px; line-height: 10px;">Mon</span>
+                    <span style="height: 10px; line-height: 10px;">Tue</span>
+                    <span style="height: 10px; line-height: 10px;">Wed</span>
+                    <span style="height: 10px; line-height: 10px;">Thu</span>
+                    <span style="height: 10px; line-height: 10px;">Fri</span>
+                    <span style="height: 10px; line-height: 10px;">Sat</span>
+                    <span style="height: 10px; line-height: 10px;">Sun</span>
+                </div>
+
+                <!-- Heatmap Grid Container -->
+                <div class="annual-heatmap-wrapper" id="annual-heatmap-wrapper-el" style="overflow-x: auto; flex-grow: 1; padding-bottom: 6px; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y; cursor: grab;">
+                    <div id="heatmap-months-header" style="position: relative; height: 16px; font-size: 0.65rem; color: var(--text-muted); margin-bottom: 2px; font-weight: bold; width: max-content;"></div>
+                    <div id="annual-heatmap-grid" class="annual-heatmap-grid"></div>
+                </div>
+            </div>
+
+            <!-- HEATMAP LEGEND -->
+            <div style="display: flex; gap: 12px; justify-content: flex-end; align-items: center; margin-top: 8px; font-size: 0.7rem; color: var(--text-muted); flex-wrap: wrap;">
+                <span>Intensity:</span>
+                <span style="display: inline-flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; background: #054F38; border: 1px solid #10B981; border-radius: 2px;"></span> 1-15m</span>
+                <span style="display: inline-flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; background: #10B981; border: 1px solid #059669; border-radius: 2px;"></span> 16-35m</span>
+                <span style="display: inline-flex; align-items: center; gap: 4px;"><span style="width: 10px; height: 10px; background: linear-gradient(135deg, #10B981, #F59E0B); border: 1px solid #F59E0B; border-radius: 2px;"></span> 36m+</span>
+            </div>
+        </div>
+
+        <!-- WEEKLY PROGRESS LINE CHART SECTION (DIAGRAM LINIOWY) -->
+        <div style="margin-bottom: 16px; background: #14151F; padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+                <div style="font-weight: bold; font-size: 0.95rem; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+                    <span>📈 Weekly Progress Line Chart</span>
+                </div>
+                <div style="display: flex; gap: 4px; align-items: center;">
+                    <button type="button" class="secondary" onclick="changeWeeklyChartWeek(-1)" style="padding: 2px 6px; font-size: 0.75rem;">◀ Prev Week</button>
+                    <span id="weekly-chart-title" style="font-size: 0.8rem; font-weight: bold; color: var(--accent); padding: 0 4px;">Week</span>
+                    <button type="button" class="secondary" onclick="changeWeeklyChartWeek(1)" style="padding: 2px 6px; font-size: 0.75rem;">Next Week ▶</button>
+                    <button type="button" class="secondary" onclick="jumpWeeklyChartToday()" style="padding: 2px 6px; font-size: 0.7rem;">Today</button>
+                </div>
+            </div>
+
+            <!-- SVG LINE CHART CONTAINER -->
+            <div id="weekly-line-chart-container" style="width: 100%; position: relative; height: 160px; background: #181926; border-radius: 6px; border: 1px solid var(--border); padding: 10px 10px 4px 10px; box-sizing: border-box;">
+                <!-- Rendered dynamically by JS via SVG -->
+            </div>
+        </div>
+
+        <!-- MONTHLY TARGET VS ACTUAL BAR CHART SECTION -->
+        <div class="month-barchart-container">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 10px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <h3 style="margin: 0; font-size: 0.95rem; color: var(--text-main);">📊 Monthly Practice Breakdown (Target vs Actual)</h3>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                    <label style="font-size: 0.75rem; margin: 0; color: var(--text-muted); font-weight: bold;">🎯 Daily Goal:</label>
+                    <div style="display: flex; align-items: center; gap: 4px;">
+                        <input type="number" id="input-daily-target" value="30" min="5" max="300" style="width: 60px; padding: 2px 6px; font-size: 0.8rem; text-align: center;" onchange="onDailyTargetChange(this.value)">
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">min/day</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MONTH NAVIGATION BAR -->
+            <div class="calendar-header-bar" style="display: flex; justify-content: space-between; align-items: center; background: #181926; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border); margin-bottom: 10px;">
+                <button type="button" class="secondary cal-nav-btn" onclick="changeCalendarMonth(-1)" style="padding: 3px 8px; font-size: 0.78rem;">◀ Prev Month</button>
+                <div class="cal-title-group" style="display: flex; align-items: center; gap: 8px;">
+                    <div id="calendar-title" style="font-weight: bold; color: var(--accent); font-size: 0.95rem;"></div>
+                    <button type="button" class="secondary cal-today-btn" onclick="jumpToCalendarToday()" style="padding: 2px 6px; font-size: 0.7rem;">Today</button>
+                </div>
+                <button type="button" class="secondary cal-nav-btn" onclick="changeCalendarMonth(1)" style="padding: 3px 8px; font-size: 0.78rem;">Next Month ▶</button>
+            </div>
+
+            <!-- MONTH GOAL SUMMARY PROGRESS BAR -->
+            <div style="background: #181926; padding: 8px 12px; border-radius: 6px; margin-bottom: 10px; border: 1px solid var(--border);">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px;">
+                    <span>⏱️ Month Progress: <b id="chart-actual-total" style="color: var(--green);">0m</b> / <span id="chart-target-total" style="color: var(--accent);">900m target</span></span>
+                    <b id="chart-percent-label" style="color: var(--accent);">0%</b>
+                </div>
+                <div style="width: 100%; height: 8px; background: #14151F; border-radius: 4px; overflow: hidden;">
+                    <div id="chart-progress-bar-inner" style="height: 100%; width: 0%; background: linear-gradient(to right, #10B981, #F59E0B); transition: width 0.3s ease;"></div>
+                </div>
+            </div>
+
+            <!-- DAILY TARGET VS ACTUAL BAR CHART WITH Y-AXIS SCALE GRID -->
+            <div style="display: flex; gap: 6px; align-items: flex-end; margin-top: 8px;">
+                <!-- Y-Axis Scale Labels (Left) -->
+                <div id="barchart-y-scale" style="display: flex; flex-direction: column; justify-content: space-between; height: 130px; font-size: 0.62rem; color: var(--text-muted); text-align: right; width: 32px; flex-shrink: 0; padding-bottom: 20px; box-sizing: border-box; user-select: none;">
+                    <span id="y-scale-max">60m</span>
+                    <span id="y-scale-midhigh">45m</span>
+                    <span id="y-scale-target" style="color: var(--accent); font-weight: bold;">30m</span>
+                    <span id="y-scale-midlow">15m</span>
+                    <span>0m</span>
+                </div>
+
+                <!-- Bar Grid -->
+                <div style="position: relative; flex-grow: 1; overflow-x: auto;">
+                    <div id="monthly-bar-chart-grid" class="chart-grid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SELECTED DAY DETAIL / JOURNAL PANEL -->
+        <div id="calendar-day-details-panel" style="display: none; margin-top: 14px; background: #14151F; padding: 12px; border-radius: 8px; border: 1px solid var(--border);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <h3 id="selected-day-title" style="margin: 0; font-size: 0.9rem; color: var(--accent);">📅 Date Details</h3>
+                <button type="button" class="secondary" onclick="closeDayDetailsPanel()" style="padding: 2px 6px; font-size: 0.7rem;">✕ Close</button>
+            </div>
+            <div id="selected-day-logs-list" style="margin-bottom: 8px;"></div>
+            
+            <!-- DAY REFLECTION NOTE -->
+            <div style="margin-top: 8px;">
+                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: bold;">📝 Practice Note / Journal Reflection:</label>
+                <div style="display: flex; gap: 6px; margin-top: 4px;">
+                    <input type="text" id="input-day-note" placeholder="e.g. Reached 100 BPM on chord switches!" style="font-size: 0.8rem;">
+                    <button type="button" class="blue" onclick="saveDayReflectionNote()" style="padding: 4px 10px; font-size: 0.8rem; white-space: nowrap;">Save Note</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MANUAL LOG MODAL / INLINE FORM -->
+        <div id="manual-log-form-container" style="display: none; margin-top: 14px; background: #181926; padding: 12px; border-radius: 8px; border: 1px solid var(--accent);">
+            <h3 style="margin: 0 0 8px 0; font-size: 0.9rem; color: var(--accent);">➕ Record Manual Practice Session</h3>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 130px;">
+                        <label style="font-size: 0.75rem;">Date:</label>
+                        <input type="date" id="manual-log-date" style="font-size: 0.8rem;">
+                    </div>
+                    <div style="flex: 1; min-width: 160px;">
+                        <label style="font-size: 0.75rem; font-weight: bold; color: var(--accent);">🎸 Select Existing Exercise:</label>
+                        <select id="manual-log-select-exercise" style="font-size: 0.8rem;" onchange="onManualLogExerciseSelect(this)">
+                            <option value="">-- Pick from existing exercises --</option>
+                        </select>
+                    </div>
+                    <div style="flex: 1; min-width: 140px;">
+                        <label style="font-size: 0.75rem;">Title (or write custom):</label>
+                        <input type="text" id="manual-log-title" placeholder="e.g. Scale Practice" style="font-size: 0.8rem;">
+                    </div>
+                    <div style="width: 80px;">
+                        <label style="font-size: 0.75rem;">Minutes:</label>
+                        <input type="number" id="manual-log-duration" value="20" min="1" max="300" style="font-size: 0.8rem;">
+                    </div>
+                    <div style="width: 80px;">
+                        <label style="font-size: 0.75rem; color: var(--accent); font-weight: bold;">⚡ Speed BPM:</label>
+                        <input type="number" id="manual-log-bpm" value="120" min="30" max="240" style="font-size: 0.8rem;">
+                    </div>
+                </div>
+                <div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px;">
+                    <button type="button" class="secondary" onclick="closeManualLogModal()" style="font-size: 0.8rem; padding: 4px 10px;">Cancel</button>
+                    <button type="button" class="green" onclick="saveManualLogEntry()" style="font-size: 0.8rem; padding: 4px 12px;">Save Workout</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-log-header-row" style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; flex-wrap: wrap; gap: 8px;">
+            <h3 style="margin: 0; font-size: 0.9rem; color: var(--text-main);">📝 Workout History Log:</h3>
+            <div class="history-log-controls" style="display: flex; align-items: center; gap: 6px;">
+                <button type="button" class="fret-ctrl-btn" onclick="navigateLogHistoryDate(-1)">◀ Prev Day</button>
+                <span id="log-history-date-display" style="font-size: 0.8rem; font-weight: bold; color: var(--accent); text-align: center;">Today</span>
+                <button type="button" class="fret-ctrl-btn" onclick="navigateLogHistoryDate(1)">Next Day ▶</button>
+                <button type="button" class="fret-ctrl-btn" onclick="navigateLogHistoryDate(0)">Today</button>
+            </div>
+        </div>
+        <div id="log-list" class="log-list" style="margin-top: 8px;"></div>
+
+        <!-- COLLAPSIBLE EXERCISE TEMPO PROGRESS CHART -->
+        <div style="margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px;">
+            <button type="button" onclick="toggleTempoProgressSection()" style="width: 100%; display: flex; justify-content: space-between; align-items: center; background: #181926; border: 1px solid var(--border); padding: 10px 14px; border-radius: 8px; color: var(--text-main); font-weight: bold; font-size: 0.9rem; cursor: pointer; transition: background 0.2s;">
+                <span>📉 Exercise Tempo Progress Chart (BPM Tracker)</span>
+                <span id="tempo-progress-toggle-icon" style="color: var(--accent);">▼ Expand Chart</span>
+            </button>
+
+            <div id="tempo-progress-section-body" style="display: none; margin-top: 12px; background: #14151F; padding: 14px; border-radius: 8px; border: 1px solid var(--border);">
+                <!-- CONTROLS: EXERCISE SELECT + TIME HORIZON TOGGLES -->
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+                    <div style="flex: 1; min-width: 200px;">
+                        <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: bold; display: block; margin-bottom: 4px;">Select Exercise to Track:</label>
+                        <select id="tempo-chart-exercise-select" onchange="renderTempoProgressChart()" style="font-size: 0.85rem; width: 100%;">
+                            <option value="">-- Choose Exercise --</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: bold; display: block; margin-bottom: 4px;">Time Horizon:</label>
+                        <div style="display: flex; gap: 4px;">
+                            <button type="button" id="tempo-horizon-weekly" class="tab-mode-btn active" onclick="setTempoChartHorizon('weekly')" style="padding: 4px 10px; font-size: 0.75rem;">🗓️ Weekly</button>
+                            <button type="button" id="tempo-horizon-monthly" class="tab-mode-btn" onclick="setTempoChartHorizon('monthly')" style="padding: 4px 10px; font-size: 0.75rem;">📊 Monthly</button>
+                            <button type="button" id="tempo-horizon-yearly" class="tab-mode-btn" onclick="setTempoChartHorizon('yearly')" style="padding: 4px 10px; font-size: 0.75rem;">🎇 Yearly</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUMMARY BADGES -->
+                <div id="tempo-chart-badges" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px;"></div>
+
+                <!-- SVG POINT-LINE CHART CONTAINER -->
+                <div id="tempo-chart-container" style="position: relative; width: 100%; min-height: 220px; background: #1E202D; border-radius: 8px; padding: 10px; border: 1px solid var(--border);"></div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -1169,14 +2155,14 @@
         html += '</tr></thead><tbody>';
 
         const rowConfigs = [
-            { label: '✋ Left Hand (Fret)', type: 'L', class: 'left-hand', inputClass: 'left-hand-input' },
+            { label: '✋ Left Hand<br><small style="font-size:0.6rem; opacity:0.85;">(Fret)</small>', type: 'L', class: 'left-hand', inputClass: 'left-hand-input' },
             { label: tabGridData.stringNames[0], type: 'str', strIdx: 0, class: 'string-name', inputClass: '' },
             { label: tabGridData.stringNames[1], type: 'str', strIdx: 1, class: 'string-name', inputClass: '' },
             { label: tabGridData.stringNames[2], type: 'str', strIdx: 2, class: 'string-name', inputClass: '' },
             { label: tabGridData.stringNames[3], type: 'str', strIdx: 3, class: 'string-name', inputClass: '' },
             { label: tabGridData.stringNames[4], type: 'str', strIdx: 4, class: 'string-name', inputClass: '' },
             { label: tabGridData.stringNames[5], type: 'str', strIdx: 5, class: 'string-name', inputClass: '' },
-            { label: '🖐️ Right Hand (Pluck)', type: 'P', class: 'right-hand', inputClass: 'right-hand-input' }
+            { label: '🖐️ Right Hand<br><small style="font-size:0.6rem; opacity:0.85;">(Pluck)</small>', type: 'P', class: 'right-hand', inputClass: 'right-hand-input' }
         ];
 
         rowConfigs.forEach((r, rowIdx) => {
@@ -1200,6 +2186,31 @@
 
         html += '</tbody>';
         table.innerHTML = html;
+        setTimeout(syncGridScrollSlider, 50);
+    }
+
+    function onGridScrollSliderInput(val) {
+        const wrapper = document.querySelector('.tab-grid-wrapper');
+        if (!wrapper) return;
+        const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
+        if (maxScroll > 0) {
+            wrapper.scrollLeft = (val / 100) * maxScroll;
+        }
+    }
+
+    function syncGridScrollSlider() {
+        const wrapper = document.querySelector('.tab-grid-wrapper');
+        const slider = document.getElementById('grid-scroll-slider');
+        const scrollBar = document.getElementById('grid-scroll-bar');
+        if (!wrapper || !slider) return;
+
+        const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
+        if (maxScroll > 10) {
+            if (scrollBar) scrollBar.style.display = 'flex';
+            slider.value = Math.round((wrapper.scrollLeft / maxScroll) * 100);
+        } else {
+            if (scrollBar) scrollBar.style.display = 'none';
+        }
     }
 
     function onStringNameInput(el) {
@@ -1415,25 +2426,185 @@
         previewSvgInForm();
     }
 
+    // --- INTERACTIVE 10-FRET RESPONSIVE FRETBOARD GENERATOR (GUITARTABCREATOR.COM STRUCTURE) ---
+    let activeFretboardStep = 0;
+    let isChordMode = false;
+
+    function toggleFretboardChordMode() {
+        isChordMode = !isChordMode;
+        const btn = document.getElementById('fretboard-chord-toggle-btn');
+        if (btn) {
+            btn.classList.toggle('active', isChordMode);
+        }
+    }
+
+    function renderFretboardUI() {
+        const table = document.getElementById('interactive-fretboard-table');
+        const indicator = document.getElementById('fretboard-step-indicator');
+        if (!table) return;
+
+        if (activeFretboardStep >= tabGridData.cols) {
+            activeFretboardStep = tabGridData.cols - 1;
+        }
+        if (activeFretboardStep < 0) activeFretboardStep = 0;
+
+        if (indicator) {
+            indicator.innerText = `Step ${activeFretboardStep + 1} / ${tabGridData.cols}`;
+        }
+
+        // Build set of frets used across ALL steps in the exercise tab
+        const usedFrets = new Set();
+        for (let c = 0; c < tabGridData.cols; c++) {
+            for (let s = 0; s < 6; s++) {
+                let fretVal = (tabGridData.strings[s][c] || '').trim();
+                if (fretVal !== '') {
+                    usedFrets.add(`${s}_${fretVal}`);
+                }
+            }
+        }
+
+        // Table matching guitartabcreator.com HTML structure
+        table.className = 'gtc_table_lg';
+
+        // TOP NUMNODE FRET NUMBERS ROW (Fret 0 above string letters, then 1 to 10)
+        let html = '<tbody><tr style="background-color: #1C0E07;"><td class="numnode">0</td>';
+        for (let f = 1; f <= 10; f++) {
+            html += `<td class="numnode">${f}</td>`;
+        }
+        html += '</tr>';
+
+        // 6 STRINGS (Clicking string letter tdnut inputs Fret 0 / Open string)
+        for (let s = 0; s < 6; s++) {
+            let stringId = s + 1;
+            let strName = tabGridData.stringNames[s] || ['e','B','G','D','A','E'][s];
+            let activeFret = tabGridData.strings[s][activeFretboardStep] || '';
+            let isOpenActive = activeFret.toString() === '0';
+            let isOpenUsed = usedFrets.has(`${s}_0`);
+
+            let nutClass = 'tdnut';
+            if (isOpenActive) nutClass += ' open-active';
+            else if (isOpenUsed) nutClass += ' open-used';
+
+            html += `<tr class="stringrow" id="${stringId}">`;
+            html += `<td class="${nutClass}" pos="${stringId}" onclick="onFretboardCellClick(${s}, 0)" title="Click to input open string 0"><div id="stringnote_${stringId}" class="stringnote">${strName}</div></td>`;
+
+            for (let f = 1; f <= 10; f++) {
+                let isNoteActive = activeFret.toString() === f.toString();
+                let isNoteUsed = usedFrets.has(`${s}_${f}`);
+                let divId = `${stringId}${f}`;
+
+                html += `<td class="tdfret" border="0" onclick="onFretboardCellClick(${s}, ${f})">`;
+                html += `<div class="fretboard-string-line string-line-${s}"></div>`;
+
+                // Inlay Pearl Dots (Frets 3, 5, 7, 9)
+                if (s === 2 && [3, 5, 7, 9].includes(f)) {
+                    html += `<div class="inlay-dot-pearl"></div>`;
+                }
+
+                html += `<div id="${divId}" title="String ${strName} Fret ${f}" class="fretdiv">`;
+                if (isNoteActive) {
+                    html += `<div id="note_${divId}" i="${stringId}" j="${f}" class="notediv" title="Active in current step">${f}</div>`;
+                } else if (isNoteUsed) {
+                    html += `<div id="note_${divId}" i="${stringId}" j="${f}" class="notediv-used" title="Used in exercise">${f}</div>`;
+                } else {
+                    html += `<div id="note_${divId}" i="${stringId}" j="${f}"></div>`;
+                }
+                html += `<div id="notetitle_${divId}" class="notetitle"></div>`;
+                html += `</div></td>`;
+            }
+            html += '</tr>';
+        }
+
+        html += '</tbody>';
+        table.innerHTML = html;
+    }
+
+    function clearFretboardStartOver() {
+        clearTabGrid();
+        activeFretboardStep = 0;
+        renderFretboardUI();
+    }
+
+    function onFretboardCellClick(strIdx, fret) {
+        let activeFret = tabGridData.strings[strIdx][activeFretboardStep] || '';
+
+        if (activeFret.toString() === fret.toString()) {
+            // Toggling off existing note
+            tabGridData.strings[strIdx][activeFretboardStep] = '';
+        } else {
+            // Setting note
+            tabGridData.strings[strIdx][activeFretboardStep] = fret.toString();
+            
+            // Only auto-advance if NOT in Chord Mode!
+            if (!isChordMode) {
+                if (activeFretboardStep < tabGridData.cols - 1) {
+                    activeFretboardStep++;
+                } else {
+                    addGridColumn();
+                    activeFretboardStep = tabGridData.cols - 1;
+                }
+            }
+        }
+
+        syncGridToText();
+        renderTabGridUI();
+        renderFretboardUI();
+    }
+
+    function prevFretboardStep() {
+        if (activeFretboardStep > 0) {
+            activeFretboardStep--;
+            renderFretboardUI();
+        }
+    }
+
+    function nextFretboardStep() {
+        if (activeFretboardStep < tabGridData.cols - 1) {
+            activeFretboardStep++;
+        } else {
+            addGridColumn();
+            activeFretboardStep = tabGridData.cols - 1;
+        }
+        renderFretboardUI();
+    }
+
+    function setFretboardFinger(hand, val) {
+        if (hand === 'L') {
+            tabGridData.L[activeFretboardStep] = val;
+        } else if (hand === 'P') {
+            tabGridData.P[activeFretboardStep] = val;
+        }
+        syncGridToText();
+        renderTabGridUI();
+        renderFretboardUI();
+    }
+
     function switchTabMode(mode) {
         currentTabMode = mode;
+        const fretboardEditor = document.getElementById('tab-fretboard-editor');
         const gridEditor = document.getElementById('tab-grid-editor');
         const textEditor = document.getElementById('tab-text-editor');
+        const fretboardBtn = document.getElementById('tab-mode-fretboard-btn');
         const gridBtn = document.getElementById('tab-mode-grid-btn');
         const textBtn = document.getElementById('tab-mode-text-btn');
 
-        if (mode === 'grid') {
-            gridEditor.style.display = 'block';
-            textEditor.style.display = 'none';
-            gridBtn.classList.add('active');
-            textBtn.classList.remove('active');
+        if (fretboardEditor) fretboardEditor.style.display = mode === 'fretboard' ? 'block' : 'none';
+        if (gridEditor) gridEditor.style.display = mode === 'grid' ? 'block' : 'none';
+        if (textEditor) textEditor.style.display = mode === 'text' ? 'block' : 'none';
+
+        if (fretboardBtn) fretboardBtn.classList.toggle('active', mode === 'fretboard');
+        if (gridBtn) gridBtn.classList.toggle('active', mode === 'grid');
+        if (textBtn) textBtn.classList.toggle('active', mode === 'text');
+
+        if (mode === 'fretboard') {
             const rawText = document.getElementById('input-tab').value;
             textToGrid(rawText);
-        } else {
-            gridEditor.style.display = 'none';
-            textEditor.style.display = 'block';
-            textBtn.classList.add('active');
-            gridBtn.classList.remove('active');
+            renderFretboardUI();
+        } else if (mode === 'grid') {
+            const rawText = document.getElementById('input-tab').value;
+            textToGrid(rawText);
+            renderTabGridUI();
+        } else { // text
             syncGridToText();
         }
     }
@@ -1471,28 +2642,48 @@
         }
     }
 
-    function clearTabGrid() {
-        for (let c = 0; c < tabGridData.cols; c++) {
-            tabGridData.L[c] = '';
-            tabGridData.P[c] = '';
-            for (let s = 0; s < 6; s++) {
-                tabGridData.strings[s][c] = '';
-            }
-        }
-        renderTabGridUI();
-        syncGridToText();
-    }
-
-    function resetTabGrid(cols = 16) {
+    function clearTabCompletelyAndStartOver(cols = 16) {
         tabGridData = {
             cols: cols,
             stringNames: ['e', 'B', 'G', 'D', 'A', 'E'],
             L: Array(cols).fill(''),
-            strings: Array.from({ length: 6 }, () => Array(cols).fill('')),
+            strings: [
+                Array(cols).fill(''),
+                Array(cols).fill(''),
+                Array(cols).fill(''),
+                Array(cols).fill(''),
+                Array(cols).fill(''),
+                Array(cols).fill('')
+            ],
             P: Array(cols).fill('')
         };
+        activeFretboardStep = 0;
+
+        const inputTab = document.getElementById('input-tab');
+        if (inputTab) inputTab.value = '';
+
+        syncGridScrollSlider();
         renderTabGridUI();
+        renderFretboardUI();
+        previewSvgInForm();
     }
+
+    function clearTabGrid() {
+        clearTabCompletelyAndStartOver(16);
+    }
+
+    function clearRawText() {
+        clearTabCompletelyAndStartOver(16);
+    }
+
+    function clearFretboardStartOver() {
+        clearTabCompletelyAndStartOver(16);
+    }
+
+    function resetTabGrid(cols = 16) {
+        clearTabCompletelyAndStartOver(cols);
+    }
+
 
     // --- RESPONSIVE HTML/CSS TAB STAFF RENDERER ---
     function renderTabHtml(rawText) {
@@ -1710,6 +2901,16 @@
     let timeLeft = 0;
     let timerId = null;
     let isRunning = false;
+    let selectedLogHistoryDate = new Date();
+
+    function navigateLogHistoryDate(delta) {
+        if (delta === 0) {
+            selectedLogHistoryDate = new Date();
+        } else {
+            selectedLogHistoryDate.setDate(selectedLogHistoryDate.getDate() + delta);
+        }
+        renderLogs();
+    }
 
     if (activeRoutineIndex >= routines.length) activeRoutineIndex = 0;
 
@@ -1731,15 +2932,27 @@
         }
     }
 
-    function updateBPM(val) {
+    function updateBPM(val, autoSave = true) {
         val = parseInt(val);
         if (isNaN(val)) val = 120;
         if (val < 30) val = 30;
         if (val > 240) val = 240;
 
         metroBpm = val;
-        document.getElementById('metro-slider').value = val;
-        document.getElementById('metro-bpm').value = val;
+        const slider = document.getElementById('metro-slider');
+        const input = document.getElementById('metro-bpm');
+        if (slider) slider.value = val;
+        if (input) input.value = val;
+
+        // Persist BPM into active exercise object & localStorage so page reload remembers it!
+        if (autoSave && routines[activeRoutineIndex] && routines[activeRoutineIndex].exercises.length > 0) {
+            const ex = routines[activeRoutineIndex].exercises[currentIndex];
+            if (ex && ex.bpm !== val) {
+                ex.bpm = val;
+                localStorage.setItem('guitar_routines', JSON.stringify(routines));
+                renderList();
+            }
+        }
 
         if (metroIsRunning) {
             restartMetronome();
@@ -1912,8 +3125,12 @@
 
     function renderStats() {
         let totalMin = logs.reduce((acc, l) => acc + l.duration, 0);
-        document.getElementById('stat-total-time').innerText = `${totalMin} min`;
-        document.getElementById('stat-sessions').innerText = logs.length;
+        const statTotal = document.getElementById('stat-total-time');
+        const statSessions = document.getElementById('stat-sessions');
+        const statStreak = document.getElementById('stat-streak');
+
+        if (statTotal) statTotal.innerText = `${totalMin} min`;
+        if (statSessions) statSessions.innerText = logs.length;
 
         let streak = 0;
         let today = new Date();
@@ -1933,70 +3150,851 @@
             }
         }
 
-        document.getElementById('stat-streak').innerText = `${streak} days`;
+        if (statStreak) statStreak.innerText = `${streak} days`;
+    }
+
+    // --- EXPANDED PROGRESS CALENDAR & WORKOUT ANALYTICS ---
+    let calendarDisplayDate = new Date();
+    let selectedCalendarDateStr = null;
+    let dayNotes = JSON.parse(localStorage.getItem('guitar_day_notes') || '{}');
+
+    function changeCalendarMonth(delta) {
+        calendarDisplayDate.setMonth(calendarDisplayDate.getMonth() + delta);
+        renderCalendar();
+    }
+
+    function jumpToCalendarToday() {
+        calendarDisplayDate = new Date();
+        renderCalendar();
+    }
+
+    let weeklyChartDisplayDate = new Date();
+
+    function changeWeeklyChartWeek(deltaWeeks) {
+        weeklyChartDisplayDate.setDate(weeklyChartDisplayDate.getDate() + (deltaWeeks * 7));
+        renderWeeklyLineChart();
+    }
+
+    function jumpWeeklyChartToday() {
+        weeklyChartDisplayDate = new Date();
+        renderWeeklyLineChart();
+    }
+
+    function renderWeeklyLineChart() {
+        const container = document.getElementById('weekly-line-chart-container');
+        const titleEl = document.getElementById('weekly-chart-title');
+        if (!container) return;
+
+        let now = new Date(weeklyChartDisplayDate);
+        let dayOfWeek = (now.getDay() + 6) % 7; // 0 = Mon, 6 = Sun
+        let monday = new Date(now);
+        monday.setDate(now.getDate() - dayOfWeek);
+        monday.setHours(0,0,0,0);
+        let sunday = new Date(monday);
+        sunday.setDate(monday.getDate() + 6);
+
+        if (titleEl) {
+            const m1 = monday.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            const m2 = sunday.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            titleEl.innerText = `${m1} - ${m2}`;
+        }
+
+        const weekDaysData = [];
+        const dayDurations = {};
+        logs.forEach(l => {
+            if (l.date && l.duration) {
+                dayDurations[l.date] = (dayDurations[l.date] || 0) + l.duration;
+            }
+        });
+
+        const dayNames = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+        let maxDurationInWeek = dailyTargetMinutes * 1.5;
+
+        for (let i = 0; i < 7; i++) {
+            let d = new Date(monday);
+            d.setDate(monday.getDate() + i);
+            let dateStr = getFormattedDate(d);
+            let duration = dayDurations[dateStr] || 0;
+            if (duration > maxDurationInWeek) maxDurationInWeek = duration;
+            weekDaysData.push({
+                name: dayNames[i],
+                dateStr: dateStr,
+                dateObj: d,
+                duration: duration
+            });
+        }
+
+        const width = container.clientWidth || 500;
+        const height = 145;
+        const paddingLeft = 35;
+        const paddingRight = 20;
+        const paddingTop = 15;
+        const paddingBottom = 25;
+
+        const chartW = width - paddingLeft - paddingRight;
+        const chartH = height - paddingTop - paddingBottom;
+
+        const yMax = Math.max(maxDurationInWeek, 60);
+
+        const points = weekDaysData.map((d, i) => {
+            const x = paddingLeft + (i / 6) * chartW;
+            const y = paddingTop + chartH - (d.duration / yMax) * chartH;
+            return { x, y, duration: d.duration, dateStr: d.dateStr, dateObj: d.dateObj, name: d.name };
+        });
+
+        const targetY = paddingTop + chartH - (dailyTargetMinutes / yMax) * chartH;
+
+        let pathD = `M ${points[0].x} ${points[0].y}`;
+        for (let i = 1; i < points.length; i++) {
+            const prev = points[i - 1];
+            const curr = points[i];
+            const cx1 = prev.x + (curr.x - prev.x) / 2;
+            const cy1 = prev.y;
+            const cx2 = prev.x + (curr.x - prev.x) / 2;
+            const cy2 = curr.y;
+            pathD += ` C ${cx1} ${cy1}, ${cx2} ${cy2}, ${curr.x} ${curr.y}`;
+        }
+
+        const areaD = `${pathD} L ${points[6].x} ${paddingTop + chartH} L ${points[0].x} ${paddingTop + chartH} Z`;
+
+        let svgHtml = `<svg class="line-chart-svg" viewBox="0 0 ${width} ${height}" preserveAspectRatio="none">
+            <defs>
+                <linearGradient id="lineChartGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.5"/>
+                    <stop offset="70%" stop-color="#10B981" stop-opacity="0.2"/>
+                    <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+                </linearGradient>
+            </defs>
+
+            <!-- Horizontal Y-Grid Lines -->
+            <line x1="${paddingLeft}" y1="${paddingTop}" x2="${width - paddingRight}" y2="${paddingTop}" class="line-chart-grid-line"/>
+            <text x="${paddingLeft - 6}" y="${paddingTop + 4}" font-size="9" fill="#9CA3AF" text-anchor="end">${yMax}m</text>
+
+            <line x1="${paddingLeft}" y1="${paddingTop + chartH/2}" x2="${width - paddingRight}" y2="${paddingTop + chartH/2}" class="line-chart-grid-line"/>
+            <text x="${paddingLeft - 6}" y="${paddingTop + chartH/2 + 3}" font-size="9" fill="#9CA3AF" text-anchor="end">${Math.round(yMax/2)}m</text>
+
+            <line x1="${paddingLeft}" y1="${paddingTop + chartH}" x2="${width - paddingRight}" y2="${paddingTop + chartH}" stroke="rgba(255,255,255,0.15)"/>
+            <text x="${paddingLeft - 6}" y="${paddingTop + chartH + 3}" font-size="9" fill="#9CA3AF" text-anchor="end">0m</text>
+
+            <!-- Target Line -->
+            ${targetY >= paddingTop && targetY <= paddingTop + chartH ? `
+                <line x1="${paddingLeft}" y1="${targetY}" x2="${width - paddingRight}" y2="${targetY}" stroke="var(--accent)" stroke-dasharray="4 4" stroke-width="1.2" opacity="0.8"/>
+                <text x="${width - paddingRight}" y="${targetY - 3}" font-size="8" fill="var(--accent)" text-anchor="end">Goal (${dailyTargetMinutes}m)</text>
+            ` : ''}
+
+            <!-- Gradient Area Fill -->
+            <path d="${areaD}" class="line-chart-area"/>
+
+            <!-- Main Line Path -->
+            <path d="${pathD}" class="line-chart-path"/>
+        `;
+
+        points.forEach((p) => {
+            const isMet = p.duration >= dailyTargetMinutes;
+            const circleClass = isMet ? 'line-chart-point line-chart-point-target-met' : 'line-chart-point';
+            const tooltip = `${p.name} (${p.dateStr}): ${p.duration} min practice`;
+
+            svgHtml += `
+                <text x="${p.x}" y="${height - 4}" font-size="10" fill="${p.dateStr === getFormattedDate(new Date()) ? 'var(--accent)' : '#9CA3AF'}" font-weight="${p.dateStr === getFormattedDate(new Date()) ? 'bold' : 'normal'}" text-anchor="middle">${p.name}</text>
+                <circle cx="${p.x}" cy="${p.y}" r="4.5" class="${circleClass}" onclick="selectCalendarDay('${p.dateStr}', new Date('${p.dateObj}'), ${p.duration})">
+                    <title>${tooltip}</title>
+                </circle>
+            `;
+        });
+
+        svgHtml += `</svg>`;
+        container.innerHTML = svgHtml;
+    }
+
+    let dailyTargetMinutes = parseInt(localStorage.getItem('guitar_daily_target_min') || '30');
+
+    function onDailyTargetChange(val) {
+        let num = parseInt(val) || 30;
+        if (num < 1) num = 1;
+        dailyTargetMinutes = num;
+        localStorage.setItem('guitar_daily_target_min', dailyTargetMinutes.toString());
+        renderCalendar();
+    }
+
+    function renderMonthlyBarChart() {
+        const year = calendarDisplayDate.getFullYear();
+        const month = calendarDisplayDate.getMonth();
+
+        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const titleEl = document.getElementById('calendar-title');
+        if (titleEl) titleEl.innerText = `${monthNames[month]} ${year}`;
+
+        const inputTarget = document.getElementById('input-daily-target');
+        if (inputTarget) inputTarget.value = dailyTargetMinutes;
+
+        const totalDays = new Date(year, month + 1, 0).getDate();
+
+        const dayDurations = {};
+        logs.forEach(l => {
+            if (l.date && l.duration) {
+                dayDurations[l.date] = (dayDurations[l.date] || 0) + l.duration;
+            }
+        });
+
+        let monthActualMin = 0;
+        let monthTargetMin = totalDays * dailyTargetMinutes;
+        let maxDurationInMonth = dailyTargetMinutes * 1.5;
+
+        for (let day = 1; day <= totalDays; day++) {
+            const dateStr = `${year}-${(month + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+            const dur = dayDurations[dateStr] || 0;
+            if (dur > maxDurationInMonth) maxDurationInMonth = dur;
+        }
+
+        // Update Y-Axis scale labels
+        const yScaleMax = document.getElementById('y-scale-max');
+        const yScaleMidHigh = document.getElementById('y-scale-midhigh');
+        const yScaleTarget = document.getElementById('y-scale-target');
+        const yScaleMidLow = document.getElementById('y-scale-midlow');
+
+        const yMax = Math.max(maxDurationInMonth, 60);
+        if (yScaleMax) yScaleMax.innerText = `${Math.round(yMax)}m`;
+        if (yScaleMidHigh) yScaleMidHigh.innerText = `${Math.round(yMax * 0.75)}m`;
+        if (yScaleTarget) yScaleTarget.innerText = `${dailyTargetMinutes}m`;
+        if (yScaleMidLow) yScaleMidLow.innerText = `${Math.round(yMax * 0.25)}m`;
+
+        const chartGrid = document.getElementById('monthly-bar-chart-grid');
+        if (!chartGrid) return;
+        chartGrid.innerHTML = '';
+
+        for (let day = 1; day <= totalDays; day++) {
+            const dateObj = new Date(year, month, day);
+            const dateStr = getFormattedDate(dateObj);
+            const duration = dayDurations[dateStr] || 0;
+            monthActualMin += duration;
+
+            const col = document.createElement('div');
+            col.className = 'chart-col';
+            if (selectedCalendarDateStr === dateStr) col.classList.add('selected-bar');
+
+            const barBg = document.createElement('div');
+            barBg.className = 'chart-bar-bg';
+
+            const percentHeight = Math.min((duration / yMax) * 100, 100);
+
+            const barFill = document.createElement('div');
+            barFill.className = 'chart-bar-fill';
+            barFill.style.height = `${percentHeight}%`;
+
+            if (duration >= dailyTargetMinutes * 1.2) {
+                barFill.classList.add('target-exceeded');
+            } else if (duration >= dailyTargetMinutes) {
+                barFill.classList.add('target-met');
+            } else if (duration > 0) {
+                barFill.classList.add('target-partial');
+            }
+
+            barBg.appendChild(barFill);
+            col.title = `${dateStr}: ${duration} min / ${dailyTargetMinutes} min goal (${Math.round((duration/dailyTargetMinutes)*100)}%)`;
+
+            const dayLbl = document.createElement('div');
+            dayLbl.className = 'chart-day-label';
+            dayLbl.innerText = day;
+
+            col.appendChild(barBg);
+            col.appendChild(dayLbl);
+
+            col.onclick = () => selectCalendarDay(dateStr, dateObj, duration);
+            chartGrid.appendChild(col);
+        }
+
+        const elActual = document.getElementById('chart-actual-total');
+        const elTarget = document.getElementById('chart-target-total');
+        const elPercent = document.getElementById('chart-percent-label');
+        const elProgressBar = document.getElementById('chart-progress-bar-inner');
+
+        const totalPct = monthTargetMin > 0 ? Math.round((monthActualMin / monthTargetMin) * 100) : 0;
+
+        if (elActual) elActual.innerText = monthActualMin >= 60 ? `${(monthActualMin/60).toFixed(1)}h` : `${monthActualMin}m`;
+        if (elTarget) elTarget.innerText = monthTargetMin >= 60 ? `${(monthTargetMin/60).toFixed(1)}h target` : `${monthTargetMin}m target`;
+        if (elPercent) elPercent.innerText = `${totalPct}%`;
+        if (elProgressBar) elProgressBar.style.width = `${Math.min(totalPct, 100)}%`;
     }
 
     function renderCalendar() {
-        const calEl = document.getElementById('calendar');
-        calEl.innerHTML = '';
+        renderWeeklyLineChart();
+        renderMonthlyBarChart();
+        renderTimePeriodAnalytics();
+        renderAnnualHeatmap();
+    }
 
-        const now = new Date();
-        const year = now.getFullYear();
-        const month = now.getMonth();
+    let annualHeatmapYear = new Date().getFullYear();
 
-        const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        document.getElementById('calendar-title').innerText = `${monthNames[month]} ${year}`;
+    function changeAnnualYear(delta) {
+        annualHeatmapYear += delta;
+        renderAnnualHeatmap();
+    }
 
-        const daysHead = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-        daysHead.forEach(d => {
-            const h = document.createElement('div');
-            h.className = 'calendar-day-head';
-            h.innerText = d;
-            calEl.appendChild(h);
+    function jumpAnnualYearToday() {
+        annualHeatmapYear = new Date().getFullYear();
+        renderAnnualHeatmap();
+        setTimeout(() => {
+            const wrapper = document.getElementById('annual-heatmap-wrapper-el');
+            const todayTile = wrapper ? wrapper.querySelector('.today-tile') : null;
+            if (todayTile) {
+                todayTile.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }, 100);
+    }
+
+    function renderAnnualHeatmap() {
+        const container = document.getElementById('annual-heatmap-grid');
+        const monthsHeader = document.getElementById('heatmap-months-header');
+        const titleEl = document.getElementById('annual-year-title');
+        if (!container) return;
+        container.innerHTML = '';
+        if (monthsHeader) monthsHeader.innerHTML = '';
+
+        if (titleEl) titleEl.innerText = `(${annualHeatmapYear})`;
+
+        const dayDurations = {};
+        logs.forEach(l => {
+            if (l.date && l.duration) {
+                dayDurations[l.date] = (dayDurations[l.date] || 0) + l.duration;
+            }
         });
 
-        const firstDayIndex = (new Date(year, month, 1).getDay() + 6) % 7;
-        const totalDays = new Date(year, month + 1, 0).getDate();
+        const startDate = new Date(annualHeatmapYear, 0, 1);
+        const endDate = new Date(annualHeatmapYear, 11, 31);
+        const todayStr = getFormattedDate(new Date());
 
-        for(let i = 0; i < firstDayIndex; i++) {
-            const empty = document.createElement('div');
-            empty.className = 'calendar-day empty';
-            calEl.appendChild(empty);
+        const shortMonthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        let lastMonth = -1;
+
+        let curr = new Date(startDate);
+        let dayCount = 0;
+
+        while (curr <= endDate) {
+            const dateStr = getFormattedDate(curr);
+            const duration = dayDurations[dateStr] || 0;
+            const currentMonth = curr.getMonth();
+
+            // Check if a new month starts to place month label above
+            if (currentMonth !== lastMonth && monthsHeader) {
+                lastMonth = currentMonth;
+                const weekIndex = Math.floor(dayCount / 7);
+                const monthSpan = document.createElement('span');
+                monthSpan.style.position = 'absolute';
+                monthSpan.style.left = `${weekIndex * 13}px`;
+                monthSpan.innerText = shortMonthNames[currentMonth];
+                monthsHeader.appendChild(monthSpan);
+            }
+
+            const tile = document.createElement('div');
+            tile.className = 'year-day-tile';
+
+            if (dateStr === todayStr) tile.classList.add('today-tile');
+
+            if (duration >= 36) {
+                tile.classList.add('lvl-3');
+                tile.title = `${dateStr}: ${duration} min practice (High Intensity)`;
+            } else if (duration >= 16) {
+                tile.classList.add('lvl-2');
+                tile.title = `${dateStr}: ${duration} min practice`;
+            } else if (duration > 0) {
+                tile.classList.add('lvl-1');
+                tile.title = `${dateStr}: ${duration} min practice`;
+            } else {
+                tile.title = `${dateStr}: No workouts`;
+            }
+
+            const targetDateObj = new Date(curr);
+            tile.onclick = () => selectCalendarDay(dateStr, targetDateObj, duration);
+
+            container.appendChild(tile);
+            curr.setDate(curr.getDate() + 1);
+            dayCount++;
         }
 
-        const logDates = new Set(logs.map(l => l.date));
-        const todayStr = getFormattedDate(now);
+        setTimeout(initHeatmapTouchAndDragScroll, 50);
+    }
 
-        for(let day = 1; day <= totalDays; day++) {
-            const dateObj = new Date(year, month, day);
-            const dateStr = getFormattedDate(dateObj);
-            
-            const dayEl = document.createElement('div');
-            dayEl.className = 'calendar-day';
-            dayEl.innerText = day;
+    function initHeatmapTouchAndDragScroll() {
+        const wrapper = document.getElementById('annual-heatmap-wrapper-el');
+        if (!wrapper || wrapper.dataset.dragInitialized) return;
+        wrapper.dataset.dragInitialized = "true";
 
-            if(dateStr === todayStr) dayEl.classList.add('today');
-            if(logDates.has(dateStr)) dayEl.classList.add('practiced');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
 
-            calEl.appendChild(dayEl);
+        wrapper.addEventListener('mousedown', (e) => {
+            isDown = true;
+            wrapper.style.cursor = 'grabbing';
+            startX = e.pageX - wrapper.offsetLeft;
+            scrollLeft = wrapper.scrollLeft;
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            isDown = false;
+            wrapper.style.cursor = 'grab';
+        });
+
+        wrapper.addEventListener('mouseup', () => {
+            isDown = false;
+            wrapper.style.cursor = 'grab';
+        });
+
+        wrapper.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - wrapper.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            wrapper.scrollLeft = scrollLeft - walk;
+        });
+    }
+
+    function renderTimePeriodAnalytics() {
+        const now = new Date();
+
+        // 1. Total All-Time
+        let totalMinAllTime = logs.reduce((acc, l) => acc + (l.duration || 0), 0);
+
+        // 2. Weekly (Current week starting Mon..Sun)
+        let dayOfWeek = (now.getDay() + 6) % 7; // 0 = Mon, 6 = Sun
+        let monday = new Date(now);
+        monday.setDate(now.getDate() - dayOfWeek);
+        monday.setHours(0,0,0,0);
+        let sunday = new Date(monday);
+        sunday.setDate(monday.getDate() + 6);
+        sunday.setHours(23,59,59,999);
+
+        let weeklyMin = 0;
+        let weeklyDaysSet = new Set();
+
+        // 3. Monthly (Current month)
+        let currentYear = now.getFullYear();
+        let currentMonth = now.getMonth();
+        let monthlyMin = 0;
+        let monthlyDaysSet = new Set();
+
+        // 4. Yearly (Current year)
+        let yearlyMin = 0;
+        let yearlyDaysSet = new Set();
+
+        logs.forEach(l => {
+            if (!l.date || !l.duration) return;
+            const parts = l.date.split('-');
+            if (parts.length < 3) return;
+
+            const lYear = parseInt(parts[0]);
+            const lMonth = parseInt(parts[1]) - 1;
+            const lDay = parseInt(parts[2]);
+            const logDate = new Date(lYear, lMonth, lDay);
+
+            // Weekly check
+            if (logDate >= monday && logDate <= sunday) {
+                weeklyMin += l.duration;
+                weeklyDaysSet.add(l.date);
+            }
+
+            // Monthly check
+            if (lYear === currentYear && lMonth === currentMonth) {
+                monthlyMin += l.duration;
+                monthlyDaysSet.add(l.date);
+            }
+
+            // Yearly check
+            if (lYear === currentYear) {
+                yearlyMin += l.duration;
+                yearlyDaysSet.add(l.date);
+            }
+        });
+
+        const fmtTime = (min) => min >= 60 ? `${(min/60).toFixed(1)}h` : `${min}m`;
+
+        const elWeekly = document.getElementById('cal-stat-weekly');
+        const elMonthly = document.getElementById('cal-stat-monthly');
+        const elYearly = document.getElementById('cal-stat-yearly');
+        const elTotal = document.getElementById('cal-stat-total');
+
+        if (elWeekly) elWeekly.innerHTML = `${fmtTime(weeklyMin)} <small style="font-size:0.65rem; font-weight:normal; color:var(--text-muted);">(${weeklyDaysSet.size}d)</small>`;
+        if (elMonthly) elMonthly.innerHTML = `${fmtTime(monthlyMin)} <small style="font-size:0.65rem; font-weight:normal; color:var(--text-muted);">(${monthlyDaysSet.size}d)</small>`;
+        if (elYearly) elYearly.innerHTML = `${fmtTime(yearlyMin)} <small style="font-size:0.65rem; font-weight:normal; color:var(--text-muted);">(${yearlyDaysSet.size}d)</small>`;
+        if (elTotal) elTotal.innerHTML = `${fmtTime(totalMinAllTime)} <small style="font-size:0.65rem; font-weight:normal; color:var(--text-muted);">(${logs.length}s)</small>`;
+    }
+
+    function selectCalendarDay(dateStr, dateObj, duration) {
+        selectedCalendarDateStr = dateStr;
+        renderCalendar();
+
+        if (dateStr) {
+            let parts = dateStr.split('-');
+            if (parts.length === 3) {
+                selectedLogHistoryDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+                renderLogs();
+            }
         }
+
+        const panel = document.getElementById('calendar-day-details-panel');
+        const title = document.getElementById('selected-day-title');
+        const logsList = document.getElementById('selected-day-logs-list');
+        const noteInput = document.getElementById('input-day-note');
+
+        if (!panel) return;
+        panel.style.display = 'block';
+
+        if (title) title.innerText = `📅 ${dateStr} Practice Breakdown`;
+
+        // List workout entries for that date
+        const dayLogs = logs.filter(l => l.date === dateStr);
+        if (logsList) {
+            if (dayLogs.length === 0) {
+                logsList.innerHTML = `<p style="font-size: 0.8rem; color: var(--text-muted); margin: 4px 0;">No workouts logged on this date.</p>`;
+            } else {
+                let html = '<div style="display:flex; flex-direction:column; gap:4px;">';
+                dayLogs.forEach(l => {
+                    const bpmDisplay = l.bpm || 120;
+                    html += `<div style="background:#1E202D; padding:6px 10px; border-radius:6px; font-size:0.8rem; display:flex; justify-content:space-between; align-items:center;">
+                        <span>🏋️ <b>${l.title}</b> <span style="color: var(--accent); font-weight:bold; margin-left:6px;">⚡ ${bpmDisplay} BPM</span></span>
+                        <span style="color: var(--green); font-weight:bold;">⏱️ ${l.duration} min</span>
+                    </div>`;
+                });
+                html += '</div>';
+                logsList.innerHTML = html;
+            }
+        }
+
+        if (noteInput) {
+            noteInput.value = dayNotes[dateStr] || '';
+        }
+    }
+
+    function closeDayDetailsPanel() {
+        const panel = document.getElementById('calendar-day-details-panel');
+        if (panel) panel.style.display = 'none';
+        selectedCalendarDateStr = null;
+        renderCalendar();
+    }
+
+    function saveDayReflectionNote() {
+        if (!selectedCalendarDateStr) return;
+        const noteInput = document.getElementById('input-day-note');
+        if (!noteInput) return;
+
+        const val = noteInput.value.trim();
+        if (val) {
+            dayNotes[selectedCalendarDateStr] = val;
+        } else {
+            delete dayNotes[selectedCalendarDateStr];
+        }
+
+        localStorage.setItem('guitar_day_notes', JSON.stringify(dayNotes));
+        renderCalendar();
+        alert("✅ Reflection note saved!");
+    }
+
+    function populateManualLogExerciseSelect() {
+        const selectEl = document.getElementById('manual-log-select-exercise');
+        if (!selectEl) return;
+
+        selectEl.innerHTML = '<option value="">-- Pick from existing exercises --</option>';
+
+        routines.forEach((r) => {
+            if (r.exercises && r.exercises.length > 0) {
+                const group = document.createElement('optgroup');
+                group.label = `📁 ${r.name}`;
+                
+                r.exercises.forEach((ex) => {
+                    const lastLog = logs.slice().reverse().find(l => 
+                        l.bpm > 0 && (l.exerciseName === ex.name || (l.title && l.title.includes(ex.name)))
+                    );
+                    const savedBpm = (lastLog && lastLog.bpm) || ex.bpm || metroBpm || 120;
+
+                    const opt = document.createElement('option');
+                    opt.value = JSON.stringify({
+                        routineName: r.name,
+                        name: ex.name,
+                        time: ex.time || 5,
+                        bpm: savedBpm
+                    });
+                    opt.innerText = `${ex.name} (${ex.time || 5}m • ⚡ ${savedBpm} BPM)`;
+                    group.appendChild(opt);
+                });
+
+                selectEl.appendChild(group);
+            }
+        });
+    }
+
+    function onManualLogExerciseSelect(selectEl) {
+        if (!selectEl || !selectEl.value) return;
+        try {
+            const data = JSON.parse(selectEl.value);
+            const titleInput = document.getElementById('manual-log-title');
+            const durInput = document.getElementById('manual-log-duration');
+            const bpmInput = document.getElementById('manual-log-bpm');
+
+            if (titleInput) titleInput.value = `${data.routineName} • ${data.name}`;
+            if (durInput) durInput.value = data.time;
+            if (bpmInput) bpmInput.value = data.bpm;
+        } catch(e){}
+    }
+
+    function openManualLogModal() {
+        const formContainer = document.getElementById('manual-log-form-container');
+        const dateInput = document.getElementById('manual-log-date');
+        const bpmInput = document.getElementById('manual-log-bpm');
+        if (formContainer) {
+            formContainer.style.display = 'block';
+            formContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        if (dateInput) dateInput.value = getFormattedDate(selectedLogHistoryDate || new Date());
+
+        let currentRoutine = routines[activeRoutineIndex];
+        let defaultBpm = (currentRoutine && currentRoutine.exercises[currentIndex] && currentRoutine.exercises[currentIndex].bpm) || metroBpm || 120;
+        if (bpmInput) bpmInput.value = defaultBpm;
+
+        populateManualLogExerciseSelect();
+    }
+
+    // --- COLLAPSIBLE EXERCISE TEMPO PROGRESS LINE CHART ---
+    let tempoChartHorizon = 'weekly';
+
+    function toggleTempoProgressSection() {
+        const body = document.getElementById('tempo-progress-section-body');
+        const icon = document.getElementById('tempo-progress-toggle-icon');
+        if (!body) return;
+
+        if (body.style.display === 'none' || !body.style.display) {
+            body.style.display = 'block';
+            if (icon) {
+                icon.innerText = '▲ Collapse Chart';
+                icon.style.color = '#EF4444';
+            }
+            populateTempoChartExerciseSelect();
+            renderTempoProgressChart();
+        } else {
+            body.style.display = 'none';
+            if (icon) {
+                icon.innerText = '▼ Expand Chart';
+                icon.style.color = 'var(--accent)';
+            }
+        }
+    }
+
+    function populateTempoChartExerciseSelect() {
+        const selectEl = document.getElementById('tempo-chart-exercise-select');
+        if (!selectEl) return;
+
+        const currentVal = selectEl.value;
+        selectEl.innerHTML = '<option value="">-- Choose Exercise to Track --</option>';
+
+        routines.forEach((r) => {
+            if (r.exercises && r.exercises.length > 0) {
+                const group = document.createElement('optgroup');
+                group.label = `📁 ${r.name}`;
+                
+                r.exercises.forEach((ex) => {
+                    const opt = document.createElement('option');
+                    opt.value = ex.name;
+                    opt.innerText = `${ex.name} (${r.name})`;
+                    if (currentVal && currentVal === ex.name) opt.selected = true;
+                    group.appendChild(opt);
+                });
+
+                selectEl.appendChild(group);
+            }
+        });
+
+        if (!selectEl.value && routines[activeRoutineIndex] && routines[activeRoutineIndex].exercises[currentIndex]) {
+            selectEl.value = routines[activeRoutineIndex].exercises[currentIndex].name;
+        }
+    }
+
+    function setTempoChartHorizon(horizon) {
+        tempoChartHorizon = horizon;
+        const btnW = document.getElementById('tempo-horizon-weekly');
+        const btnM = document.getElementById('tempo-horizon-monthly');
+        const btnY = document.getElementById('tempo-horizon-yearly');
+
+        if (btnW) btnW.classList.toggle('active', horizon === 'weekly');
+        if (btnM) btnM.classList.toggle('active', horizon === 'monthly');
+        if (btnY) btnY.classList.toggle('active', horizon === 'yearly');
+
+        renderTempoProgressChart();
+    }
+
+    function renderTempoProgressChart() {
+        const selectEl = document.getElementById('tempo-chart-exercise-select');
+        const container = document.getElementById('tempo-chart-container');
+        const badgesContainer = document.getElementById('tempo-chart-badges');
+        if (!container) return;
+
+        const exName = selectEl ? selectEl.value : '';
+        if (!exName) {
+            container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 40px 0;">Select an exercise above to view its tempo progression line chart.</p>`;
+            if (badgesContainer) badgesContainer.innerHTML = '';
+            return;
+        }
+
+        let matchedLogs = logs.filter(l => 
+            l.bpm && l.bpm > 0 && (l.exerciseName === exName || (l.title && l.title.includes(exName)))
+        );
+
+        const now = new Date();
+
+        if (tempoChartHorizon === 'weekly') {
+            const oneWeekAgo = new Date(now);
+            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+            matchedLogs = matchedLogs.filter(l => new Date(l.date + 'T00:00:00') >= oneWeekAgo);
+        } else if (tempoChartHorizon === 'monthly') {
+            const oneMonthAgo = new Date(now);
+            oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
+            matchedLogs = matchedLogs.filter(l => new Date(l.date + 'T00:00:00') >= oneMonthAgo);
+        } else if (tempoChartHorizon === 'yearly') {
+            const oneYearAgo = new Date(now);
+            oneYearAgo.setDate(oneYearAgo.getDate() - 365);
+            matchedLogs = matchedLogs.filter(l => new Date(l.date + 'T00:00:00') >= oneYearAgo);
+        }
+
+        matchedLogs.sort((a, b) => new Date(a.date + 'T00:00:00') - new Date(b.date + 'T00:00:00'));
+
+        if (matchedLogs.length === 0) {
+            container.innerHTML = `<p style="color: var(--text-muted); font-size: 0.85rem; text-align: center; padding: 40px 0;">No tempo logs recorded for <strong>${exName}</strong> in the selected ${tempoChartHorizon} view.</p>`;
+            if (badgesContainer) badgesContainer.innerHTML = '';
+            return;
+        }
+
+        const bpms = matchedLogs.map(l => l.bpm);
+        const maxBpm = Math.max(...bpms);
+        const minBpm = Math.min(...bpms);
+        const avgBpm = Math.round(bpms.reduce((a, b) => a + b, 0) / bpms.length);
+
+        if (badgesContainer) {
+            badgesContainer.innerHTML = `
+                <div style="background:#181926; padding:6px 12px; border-radius:6px; border:1px solid var(--border); font-size:0.8rem;">🚀 Max: <strong style="color:var(--green);">${maxBpm} BPM</strong></div>
+                <div style="background:#181926; padding:6px 12px; border-radius:6px; border:1px solid var(--border); font-size:0.8rem;">🎯 Avg: <strong style="color:var(--accent);">${avgBpm} BPM</strong></div>
+                <div style="background:#181926; padding:6px 12px; border-radius:6px; border:1px solid var(--border); font-size:0.8rem;">⏱️ Min: <strong style="color:#EAB308;">${minBpm} BPM</strong></div>
+                <div style="background:#181926; padding:6px 12px; border-radius:6px; border:1px solid var(--border); font-size:0.8rem;">📊 Entries: <strong>${matchedLogs.length}</strong></div>
+            `;
+        }
+
+        const width = container.clientWidth || 500;
+        const height = 180;
+        const padding = 30;
+
+        const chartWidth = width - padding * 2;
+        const chartHeight = height - padding * 2;
+
+        const yMin = Math.max(0, minBpm - 15);
+        const yMax = maxBpm + 15;
+
+        const points = matchedLogs.map((l, idx) => {
+            const x = matchedLogs.length === 1 ? padding + chartWidth / 2 : padding + (idx / (matchedLogs.length - 1)) * chartWidth;
+            const y = height - padding - ((l.bpm - yMin) / (yMax - yMin)) * chartHeight;
+            return { x, y, date: l.date, bpm: l.bpm, title: l.title };
+        });
+
+        let pathD = `M ${points[0].x} ${points[0].y}`;
+        for (let i = 1; i < points.length; i++) {
+            pathD += ` L ${points[i].x} ${points[i].y}`;
+        }
+
+        let areaD = `${pathD} L ${points[points.length - 1].x} ${height - padding} L ${points[0].x} ${height - padding} Z`;
+
+        let svgHtml = `
+            <svg class="line-chart-svg" viewBox="0 0 ${width} ${height}" style="width: 100%; height: 180px; overflow: visible;">
+                <defs>
+                    <linearGradient id="tempoAreaGradient" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="var(--accent)" stop-opacity="0.35"/>
+                        <stop offset="100%" stop-color="var(--accent)" stop-opacity="0.0"/>
+                    </linearGradient>
+                </defs>
+
+                <line x1="${padding}" y1="${padding}" x2="${width - padding}" y2="${padding}" stroke="var(--border)" stroke-dasharray="3,3"/>
+                <line x1="${padding}" y1="${height / 2}" x2="${width - padding}" y2="${height / 2}" stroke="var(--border)" stroke-dasharray="3,3"/>
+                <line x1="${padding}" y1="${height - padding}" x2="${width - padding}" y2="${height - padding}" stroke="var(--border)"/>
+
+                <path d="${areaD}" fill="url(#tempoAreaGradient)" />
+                <path d="${pathD}" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+
+                ${points.map(p => `
+                    <circle cx="${p.x}" cy="${p.y}" r="5" fill="var(--accent)" stroke="#ffffff" stroke-width="2" class="line-chart-point"
+                        onclick="selectCalendarDay('${p.date}')"
+                        style="cursor: pointer; transition: transform 0.2s;">
+                        <title>${p.date}: ${p.bpm} BPM (${p.title})</title>
+                    </circle>
+                    <text x="${p.x}" y="${p.y - 10}" fill="var(--accent)" font-size="10" font-weight="bold" text-anchor="middle">${p.bpm}</text>
+                    <text x="${p.x}" y="${height - padding + 14}" fill="var(--text-muted)" font-size="9" text-anchor="middle">${p.date.slice(5)}</text>
+                `).join('')}
+            </svg>
+        `;
+
+        container.innerHTML = svgHtml;
+    }
+
+    function closeManualLogModal() {
+        const formContainer = document.getElementById('manual-log-form-container');
+        if (formContainer) formContainer.style.display = 'none';
+    }
+
+    function saveManualLogEntry() {
+        const dateVal = document.getElementById('manual-log-date').value;
+        const titleVal = document.getElementById('manual-log-title').value.trim() || 'Guitar Workout';
+        const durVal = parseInt(document.getElementById('manual-log-duration').value) || 20;
+        const rawBpm = document.getElementById('manual-log-bpm').value;
+        const bpmVal = parseInt(rawBpm) || metroBpm || 120;
+
+        if (!dateVal) {
+            alert("Please select a date for the workout!");
+            return;
+        }
+
+        let currentRoutine = routines[activeRoutineIndex];
+        let currentEx = currentRoutine && currentRoutine.exercises[currentIndex];
+        const metroRecCheckbox = document.getElementById('metro-record-bpm-checkbox');
+        const shouldRecordBpm = metroRecCheckbox ? metroRecCheckbox.checked : (currentEx ? currentEx.recordBpm !== false : true);
+
+        let logEntry = {
+            date: dateVal,
+            title: titleVal,
+            duration: durVal
+        };
+
+        if (shouldRecordBpm) {
+            logEntry.bpm = bpmVal;
+        }
+
+        logs.push(logEntry);
+
+        saveData();
+        closeManualLogModal();
+        alert("✅ Manual workout logged!");
     }
 
     function renderLogs() {
         const listEl = document.getElementById('log-list');
+        const dateDisplay = document.getElementById('log-history-date-display');
+        if (!listEl) return;
+
+        const dateStr = getFormattedDate(selectedLogHistoryDate);
+        const todayStr = getFormattedDate(new Date());
+
+        if (dateDisplay) {
+            dateDisplay.innerText = dateStr === todayStr ? `Today (${dateStr})` : dateStr;
+        }
+
         listEl.innerHTML = '';
-        if(logs.length === 0) {
-            listEl.innerHTML = '<p style="color: var(--text-muted); font-size: 0.8rem;">No history yet. Complete your first routine!</p>';
+
+        const dayLogs = logs.map((l, originalIndex) => ({ ...l, originalIndex }))
+                            .filter(l => l.date === dateStr);
+
+        if (dayLogs.length === 0) {
             return;
         }
 
-        const reversedLogs = logs.map((l, originalIndex) => ({ ...l, originalIndex })).reverse().slice(0, 5);
-
-        reversedLogs.forEach(l => {
+        dayLogs.reverse().forEach(l => {
+            const bpmSpan = (l.bpm && l.bpm > 0) ? `<strong style="color: var(--accent); margin-left: 6px;">⚡ ${l.bpm} BPM</strong>` : '';
             const item = document.createElement('div');
             item.className = 'log-item';
             item.innerHTML = `
-                <span>📅 ${l.date} - ${l.title} <strong style="color: var(--green);">⏱️ ${l.duration}m</strong></span>
+                <span>🏋️ <b>${l.title}</b> ${bpmSpan} <strong style="color: var(--green); margin-left: 6px;">⏱️ ${l.duration}m</strong></span>
                 <button class="btn-action btn-del" onclick="deleteLog(${l.originalIndex})">Delete</button>
             `;
             listEl.appendChild(item);
@@ -2022,11 +4020,30 @@
         let todayStr = getFormattedDate(new Date());
         let totalMin = currentRoutine.exercises.reduce((acc, ex) => acc + ex.time, 0);
         
-        logs.push({
+        let currentEx = currentRoutine.exercises[currentIndex];
+        let exName = currentEx ? currentEx.name : '';
+        let titleStr = exName ? `${currentRoutine.name} • ${exName}` : currentRoutine.name;
+
+        let lastExerciseBpm = (currentEx && currentEx.bpm) || 0;
+        let speedBpm = (metroIsRunning && metroBpm > 0) ? metroBpm : (lastExerciseBpm || metroBpm || 120);
+
+        const metroRecCheckbox = document.getElementById('metro-record-bpm-checkbox');
+        const shouldRecordBpm = metroRecCheckbox ? metroRecCheckbox.checked : (currentEx ? currentEx.recordBpm !== false : true);
+
+        let logEntry = {
             date: todayStr,
-            title: currentRoutine.name,
+            title: titleStr,
+            routineName: currentRoutine.name,
+            exerciseName: exName,
             duration: totalMin || 15
-        });
+        };
+
+        if (shouldRecordBpm) {
+            logEntry.bpm = speedBpm;
+        }
+
+        logs.push(logEntry);
+
         saveData();
         alert("✅ Marked today's workout as completed!");
     }
@@ -2099,6 +4116,34 @@
         document.getElementById('current-step').innerText = `Step ${currentIndex + 1}/${exercises.length}`;
         document.getElementById('exercise-name').innerText = current.name;
         
+        // Fetch last logged BPM for this exercise from Workout History (logs)
+        const lastLog = logs.slice().reverse().find(l => 
+            l.bpm > 0 && (l.exerciseName === current.name || (l.title && l.title.includes(current.name)))
+        );
+
+        let targetBpm = 120;
+        if (lastLog && lastLog.bpm > 0) {
+            targetBpm = lastLog.bpm;
+        } else if (current.bpm && current.bpm > 0) {
+            targetBpm = current.bpm;
+        } else if (metroBpm > 0) {
+            targetBpm = metroBpm;
+        }
+
+        updateBPM(targetBpm, false);
+
+        // Sync metronome Record Speed checkbox state with current exercise preference
+        const metroRecCheckbox = document.getElementById('metro-record-bpm-checkbox');
+        if (metroRecCheckbox) {
+            metroRecCheckbox.checked = (current.recordBpm !== false);
+            metroRecCheckbox.onchange = function() {
+                if (routines[activeRoutineIndex] && routines[activeRoutineIndex].exercises[currentIndex]) {
+                    routines[activeRoutineIndex].exercises[currentIndex].recordBpm = this.checked;
+                    localStorage.setItem('guitar_routines', JSON.stringify(routines));
+                }
+            };
+        }
+
         if(!isRunning) {
             timeLeft = current.time * 60;
             displayTime(timeLeft);
@@ -2275,6 +4320,9 @@
         document.getElementById('input-preferred-view').value = ex.preferredView || 'svg';
         document.getElementById('input-image').value = '';
 
+        const recordBpmEl = document.getElementById('input-record-bpm');
+        if (recordBpmEl) recordBpmEl.checked = ex.recordBpm !== false;
+
         currentExerciseImage = ex.image || '';
         updateImageFormPreview();
 
@@ -2298,6 +4346,9 @@
         document.getElementById('input-image').value = '';
         document.getElementById('form-svg-preview').style.display = 'none';
 
+        const recordBpmEl = document.getElementById('input-record-bpm');
+        if (recordBpmEl) recordBpmEl.checked = true;
+
         currentExerciseImage = '';
         updateImageFormPreview();
 
@@ -2315,6 +4366,8 @@
         const tab = document.getElementById('input-tab').value;
         const preferredView = document.getElementById('input-preferred-view').value || 'svg';
         const editIndex = parseInt(document.getElementById('edit-exercise-index').value);
+        const recordBpmEl = document.getElementById('input-record-bpm');
+        const recordBpm = recordBpmEl ? recordBpmEl.checked : true;
 
         if(!name) {
             alert("Please enter an exercise name!");
@@ -2322,11 +4375,13 @@
         }
 
         const exercises = routines[activeRoutineIndex].exercises;
+        const existingBpm = editIndex > -1 ? (exercises[editIndex].bpm || metroBpm) : metroBpm;
+        const exObj = { name, time, bpm: existingBpm, recordBpm, tab, preferredView, image: currentExerciseImage };
 
         if (editIndex > -1) {
-            exercises[editIndex] = { name, time, tab, preferredView, image: currentExerciseImage };
+            exercises[editIndex] = exObj;
         } else {
-            exercises.push({ name, time, tab, preferredView, image: currentExerciseImage });
+            exercises.push(exObj);
         }
 
         saveData();
@@ -2388,6 +4443,7 @@
     }
 
     resetTabGrid(16);
+    switchTabMode('fretboard');
     renderAll();
 </script>
 
